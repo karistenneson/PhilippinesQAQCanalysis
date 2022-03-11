@@ -1,3 +1,5 @@
+git clone <https....>
+
 git add . 
 git commit -m 'message about commit'
 git push
