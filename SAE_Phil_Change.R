@@ -140,27 +140,42 @@ dim(datamerged_FIXED)
 ############Set up clean CEO labels - Version 1
 #Right now the order in which you define these matters
 #In version 1: Pixels with multiple events are not separated out
-datamerged$CEOreadable_v1 <- ifelse(datamerged$ChangeType.1 == "Degradation" | datamerged$ChangeType.2 == "Degradation" | datamerged$ChangeType.3 == "Degradation" , 'Degradation',
-                                  ifelse(datamerged$ChangeType.1 == "Deforestation"| datamerged$ChangeType.2 == "Deforestation" | datamerged$ChangeType.3 == "Deforestation", 'Deforestation', 
-                                         ifelse(datamerged$ChangeType.1 == "Reforestation"| datamerged$ChangeType.2 == "Reforestation" | datamerged$ChangeType.3 == "Reforestation", 'Reforestation', 
-                                                ifelse(datamerged$forest.change.event == "N/A non-forest entire time", "stable non forest",
-                                                       ifelse(datamerged$forest.change.event == "no", "stable forest", 'NotReviewed')))))
-table(datamerged$CEOreadable_v1)
-write.csv(datamerged, file = 'Results\\Philippines_Test1.csv', row.names = F)
+datamerged_FIXED$CEOreadable_v1 <- ifelse(datamerged_FIXED$ChangeType.1 == "Degradation" | datamerged$ChangeType.2 == "Degradation" | datamerged$ChangeType.3 == "Degradation" , 'Degradation',
+                                  ifelse(datamerged_FIXED$ChangeType.1 == "Deforestation"| datamerged$ChangeType.2 == "Deforestation" | datamerged$ChangeType.3 == "Deforestation", 'Deforestation', 
+                                         ifelse(datamerged_FIXED$ChangeType.1 == "Reforestation"| datamerged$ChangeType.2 == "Reforestation" | datamerged$ChangeType.3 == "Reforestation", 'Reforestation', 
+                                                ifelse(datamerged_FIXED$forest.change.event == "N/A non-forest entire time", "stable non forest",
+                                                       ifelse(datamerged_FIXED$forest.change.event == "no", "stable forest", 'NotReviewed')))))
+table(datamerged_FIXED$CEOreadable_v1)
+write.csv(datamerged_FIXED, file = 'Results\\Philippines_Test1.csv', row.names = F)
 
 ############Set up clean CEO labels - Version 2
 #In version 2: Pixels with multiple events ARE separated out
 '%!in%' <- Negate('%in%')
-datamerged$CEOreadable_v2 <- ifelse(datamerged$ChangeType.1 == "Degradation" & datamerged$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
-                                    ifelse(datamerged$ChangeType.1 == "Deforestation" & datamerged$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Deforestation', 
-                                           ifelse(datamerged$ChangeType.1 == "Reforestation" & datamerged$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Reforestation',
-                                                  ifelse(datamerged$morethan3.forest.changes == "no", 'multiple events ecologically possible',
-                                                         ifelse(datamerged$morethan3.forest.changes == "yes", 'multiple events noise',
-                                                                ifelse(datamerged$ChangeType.2 %in% c("Degradation","Deforestation","Regeneration") & datamerged$third.forest.change.event == "no", 'multiple events ecologically possible',
-                                                                       ifelse(datamerged$forest.change.event == "N/A non-forest entire time", "stable non forest",
-                                                                              ifelse(datamerged$forest.change.event == "no", "stable forest", 'NotReviewed'))))))))
-table(datamerged$CEOreadable_v2)
-write.csv(datamerged, file = 'Results\\Philippines_Test2.csv', row.names = F)
+datamerged_FIXED$CEOreadable_v2 <- ifelse(datamerged_FIXED$ChangeType.1 == "Degradation" & datamerged_FIXED$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
+                                    ifelse(datamerged_FIXED$ChangeType.1 == "Deforestation" & datamerged_FIXED$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Deforestation', 
+                                           ifelse(datamerged_FIXED$ChangeType.1 == "Reforestation" & datamerged_FIXED$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Reforestation',
+                                                  ifelse(datamerged_FIXED$morethan3.forest.changes == "no", 'multiple events ecologically possible',
+                                                         ifelse(datamerged_FIXED$morethan3.forest.changes == "yes", 'multiple events noise',
+                                                                ifelse(datamerged_FIXED$ChangeType.2 %in% c("Degradation","Deforestation","Regeneration") & datamerged_FIXED$third.forest.change.event == "no", 'multiple events ecologically possible',
+                                                                       ifelse(datamerged_FIXED$forest.change.event == "N/A non-forest entire time", "stable non forest",
+                                                                              ifelse(datamerged_FIXED$forest.change.event == "no", "stable forest", 'NotReviewed'))))))))
+table(datamerged_FIXED$CEOreadable_v2)
+write.csv(datamerged_FIXED, file = 'Results\\Philippines_Test2.csv', row.names = F)
+
+############Set up clean CEO labels - Version 3
+#In version 2: Pixels with multiple events are combined
+'%!in%' <- Negate('%in%')
+datamerged_FIXED$CEOreadable_v3 <- ifelse(datamerged_FIXED$ChangeType.1 == "Degradation" & datamerged_FIXED$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
+                                          ifelse(datamerged_FIXED$ChangeType.1 == "Deforestation" & datamerged_FIXED$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Deforestation', 
+                                                 ifelse(datamerged_FIXED$ChangeType.1 == "Reforestation" & datamerged_FIXED$ChangeType.2 %!in% c("Degradation","Deforestation","Regeneration"), 'Reforestation',
+                                                        ifelse(datamerged_FIXED$morethan3.forest.changes == "no", 'multiple events',
+                                                               ifelse(datamerged_FIXED$morethan3.forest.changes == "yes", 'multiple events',
+                                                                      ifelse(datamerged_FIXED$ChangeType.2 %in% c("Degradation","Deforestation","Regeneration") & datamerged_FIXED$third.forest.change.event == "no", 'multiple events',
+                                                                             ifelse(datamerged_FIXED$forest.change.event == "N/A non-forest entire time", "stable non forest",
+                                                                                    ifelse(datamerged_FIXED$forest.change.event == "no", "stable forest", 'NotReviewed'))))))))
+table(datamerged_FIXED$CEOreadable_v3)
+write.csv(datamerged_FIXED, file = 'Results\\Philippines_Test3.csv', row.names = F)
+
 
 #############################################################
 #############################################################
@@ -169,31 +184,31 @@ write.csv(datamerged, file = 'Results\\Philippines_Test2.csv', row.names = F)
 #############################################################
 
 #cross tab of strata 
-table(datamerged$ReadableChangeStrata_Map_v1, datamerged$CEOreadable_v2)
-table_mapv1_CEOv2 <- table(datamerged$ReadableChangeStrata_Map_v1, datamerged$CEOreadable_v2)
-write.csv(table_mapv1_CEOv2, file = 'Results\\CrossTable_mapv1_ceov2.csv', row.names = T)
+table(datamerged_FIXED$ReadableChangeStrata_Map_v1, datamerged_FIXED$CEOreadable_v3)
+table_mapv1_CEOv3 <- table(datamerged_FIXED$ReadableChangeStrata_Map_v1, datamerged_FIXED$CEOreadable_v3)
+write.csv(table_mapv1_CEOv3, file = 'Results\\CrossTable_mapv1_ceov3.csv', row.names = T)
 #########################################
 ## Set up sample design
 #########################################
-strat_design <- svydesign(id = ~1, strata = ~ReadableChangeStrata_Map_v1, fpc = ~pixel.count, 
-                          data = datamerged)
+strat_design <- svydesign(id = ~1, strata = ~ReadableChangeStrata_Map_v1, fpc = ~pixel.count.y, 
+                          data = datamerged_FIXED)
 #########################################
 ## once sample design is set up you can analyze the data
 #########################################
-colnames(datamerged)
 ## survey total (svytotal) calculates area weighted totals of data
 #?svytotal()
 
-activityData <- svytotal(~CEOreadable_v1, strat_design)
+activityData <- svytotal(~CEOreadable_v3, strat_design)
 activityData
 
 Change<-as.data.frame(activityData)
 colnames(Change)<-c('Total, pixels','SE, pixels')
 Change
-rownames(Change)<-c("forest degradation", 
-                    "forest loss", 
-                    "more than one type of event", 
-                    "reforestation",
+rownames(Change)<-c("Deforestation", 
+                    "Degradation", 
+                    "multi, 3 or less events", 
+                    "multi, noise",
+                    "Reforestation",
                     "stable forest", 
                     "stable non-forest")
 Change
@@ -210,7 +225,7 @@ Change
 
 #######
 ## write results #########
-write.csv(Change, file = 'Results\\AreasofDisturbance_INCLUDINGQAQC_SAVE.csv', row.names = T)
+write.csv(Change, file = 'Results\\AreasofDisturbance_ceoV3version_SAVE.csv', row.names = T)
 
 
 
