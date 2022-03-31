@@ -48,7 +48,7 @@ tail(dataCEO_combo)
 colnames(dataCEO_combo)
 colnames(dataCEO_combo)[14]<-"confidence"
 colnames(dataCEO_combo)[15]<-"confidence.reasoning"
-colnames(dataCEO_combo)[16]<-"LC2000"
+colnames(dataCEO_combo)[16]<-"LC2000a"
 colnames(dataCEO_combo)[17]<-"Forest.Type.2000"
 colnames(dataCEO_combo)[18]<-"NonForest.Type.2000" 
 colnames(dataCEO_combo)[19]<-"Crop.Type.2000" 
@@ -291,17 +291,159 @@ Change
 ## write results #########
 write.csv(Change, file = 'Results\\AreasofDisturbance_ceoV4version_SAVE.csv', row.names = T)
 
+###########################################################################
+############################################################################
+###########################################################################
+############################################################################
+##After review there were a few points that were double checked because
+##there were more off-diagonal points than were expected in the confusion matrix
+##Below is the updated analysis with those points altered
+
+datamerged_FIXED_v2 <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\ceo-Philippines_QAQCReview_MapInterpreterDisagreement-sample-data-FIXED.csv')
+colnames(datamerged_FIXED_v2)
+datamerged_FIXED_v2 <- datamerged_FIXED_v2[-c(1,3:80)]
+colnames(datamerged_FIXED_v2)
+colnames(datamerged_FIXED)
+head(datamerged_FIXED$sampleid)
+head(datamerged_FIXED_v2$sampleid)
 
 
 
+colnames(datamerged_FIXED_v2)[7]<-"Year.of.first.change.b"
+colnames(datamerged_FIXED_v2)[12]<-"Year.of.second.change.b"
+colnames(datamerged_FIXED_v2)[19]<-"Year.of.third.change.b"
+colnames(datamerged_FIXED_v2)[28]<-"confidenceb"
+colnames(datamerged_FIXED_v2)[29]<-"confidence.reasoningb"
+colnames(datamerged_FIXED_v2)[2]<-"LC2000b"
+colnames(datamerged_FIXED_v2)[3]<-"Forest.Type.2000b"
+colnames(datamerged_FIXED_v2)[4]<-"NonForest.Type.2000b" 
+colnames(datamerged_FIXED_v2)[5]<-"Crop.Type.2000b" 
+colnames(datamerged_FIXED_v2)[23]<-"LC2018endb"
+colnames(datamerged_FIXED_v2)[6]<-"forest.change.eventb" 
+colnames(datamerged_FIXED_v2)[20]<-"ChangeType.1b"
+colnames(datamerged_FIXED_v2)[22]<-"Degradation.Driver.1b"
+colnames(datamerged_FIXED_v2)[21]<-"Loss.Driver.1b"
+colnames(datamerged_FIXED_v2)[8]<-"second.forest.change.eventb"
+colnames(datamerged_FIXED_v2)[9]<-"ChangeType.2b"
+colnames(datamerged_FIXED_v2)[10]<-"Degradation.Driver.2b"
+colnames(datamerged_FIXED_v2)[11]<-"Loss.Driver.2b"
+colnames(datamerged_FIXED_v2)[13]<-"third.forest.change.eventb" 
+colnames(datamerged_FIXED_v2)[14]<-"ChangeType.3b"
+colnames(datamerged_FIXED_v2)[16]<-"Degradation.Driver.3b"
+colnames(datamerged_FIXED_v2)[15]<-"Loss.Driver.3b"
+colnames(datamerged_FIXED_v2)[17]<-"morethan3.forest.changesb" 
+colnames(datamerged_FIXED_v2)[18]<-"describe.extra.changesb" 
+colnames(datamerged_FIXED_v2)[24]<-"Forest.Type.2018b" 
+colnames(datamerged_FIXED_v2)[25]<-"NonForest.Type.2018b" 
+colnames(datamerged_FIXED_v2)[26]<-"Crop.Type.2018b" 
+colnames(datamerged_FIXED_v2)[27]<-"mixed.lc.pixelb"
+colnames(datamerged_FIXED_v2)
+
+dim(datamerged_FIXED)
+FINALDATASET <- merge(datamerged_FIXED, datamerged_FIXED_v2, by.x = c("sampleid"), by.y = c("sampleid"), all.x = T)
+dim(FINALDATASET)
+colnames(FINALDATASET)
+head(FINALDATASET)
+####Fill in all the values for the rows that were not reviewed with the original answers
+FINALDATASET$LC2000b <- ifelse(is.na(FINALDATASET$LC2000b), FINALDATASET$LC2000, FINALDATASET$LC2000b)
+FINALDATASET$Forest.Type.2000b <- ifelse(is.na(FINALDATASET$Forest.Type.2000b), FINALDATASET$Forest.Type.2000, FINALDATASET$Forest.Type.2000b)
+FINALDATASET$NonForest.Type.2000b <- ifelse(is.na(FINALDATASET$NonForest.Type.2000b), FINALDATASET$NonForest.Type.2000, FINALDATASET$NonForest.Type.2000b)
+FINALDATASET$Crop.Type.2000b <- ifelse(is.na(FINALDATASET$Crop.Type.2000b), FINALDATASET$Crop.Type.2000, FINALDATASET$Crop.Type.2000b)
+FINALDATASET$forest.change.eventb <- ifelse(is.na(FINALDATASET$forest.change.eventb), FINALDATASET$forest.change.event, FINALDATASET$forest.change.eventb)
+FINALDATASET$Year.of.first.change.b <- ifelse(is.na(FINALDATASET$Year.of.first.change.b), FINALDATASET$Year.of.first.change., FINALDATASET$Year.of.first.change.b)
+FINALDATASET$second.forest.change.eventb <- ifelse(is.na(FINALDATASET$second.forest.change.eventb), FINALDATASET$second.forest.change.event, FINALDATASET$second.forest.change.eventb)
+FINALDATASET$ChangeType.2b <- ifelse(is.na(FINALDATASET$ChangeType.2b), FINALDATASET$ChangeType.2, FINALDATASET$ChangeType.2b)
+FINALDATASET$Degradation.Driver.2b <- ifelse(is.na(FINALDATASET$Degradation.Driver.2b), FINALDATASET$Degradation.Driver.2, FINALDATASET$Degradation.Driver.2b)
+FINALDATASET$Loss.Driver.2b <- ifelse(is.na(FINALDATASET$Loss.Driver.2b), FINALDATASET$Loss.Driver.2, FINALDATASET$Loss.Driver.2b)
+FINALDATASET$Year.of.second.change.b <- ifelse(is.na(FINALDATASET$Year.of.second.change.b), FINALDATASET$Year.of.second.change., FINALDATASET$Year.of.second.change.b)
+FINALDATASET$third.forest.change.eventb <- ifelse(is.na(FINALDATASET$third.forest.change.eventb), FINALDATASET$third.forest.change.event, FINALDATASET$third.forest.change.eventb)
+FINALDATASET$ChangeType.3b <- ifelse(is.na(FINALDATASET$ChangeType.3b), FINALDATASET$ChangeType.3, FINALDATASET$ChangeType.3b)
+FINALDATASET$Loss.Driver.3b <- ifelse(is.na(FINALDATASET$Loss.Driver.3b), FINALDATASET$Loss.Driver.3, FINALDATASET$Loss.Driver.3b)
+FINALDATASET$Degradation.Driver.3b <- ifelse(is.na(FINALDATASET$Degradation.Driver.3b), FINALDATASET$Degradation.Driver.3, FINALDATASET$Degradation.Driver.3b)
+FINALDATASET$morethan3.forest.changesb <- ifelse(is.na(FINALDATASET$morethan3.forest.changesb), FINALDATASET$morethan3.forest.changes, FINALDATASET$morethan3.forest.changesb)
+FINALDATASET$describe.extra.changesb <- ifelse(is.na(FINALDATASET$describe.extra.changesb), FINALDATASET$describe.extra.changes, FINALDATASET$describe.extra.changesb)
+FINALDATASET$Year.of.third.change.b <- ifelse(is.na(FINALDATASET$Year.of.third.change.b), FINALDATASET$Year.of.third.change., FINALDATASET$Year.of.third.change.b)
+FINALDATASET$ChangeType.1b <- ifelse(is.na(FINALDATASET$ChangeType.1b), FINALDATASET$ChangeType.1, FINALDATASET$ChangeType.1b)
+FINALDATASET$Loss.Driver.1b <- ifelse(is.na(FINALDATASET$Loss.Driver.1b), FINALDATASET$Loss.Driver.1, FINALDATASET$Loss.Driver.1b)
+FINALDATASET$Degradation.Driver.1b <- ifelse(is.na(FINALDATASET$Degradation.Driver.1b), FINALDATASET$Degradation.Driver.1, FINALDATASET$Degradation.Driver.1b)
+FINALDATASET$LC2018endb <- ifelse(is.na(FINALDATASET$LC2018endb), FINALDATASET$LC2018end, FINALDATASET$LC2018endb)
+FINALDATASET$Forest.Type.2018b <- ifelse(is.na(FINALDATASET$Forest.Type.2018b), FINALDATASET$Forest.Type.2018, FINALDATASET$Forest.Type.2018b)
+FINALDATASET$NonForest.Type.2018b <- ifelse(is.na(FINALDATASET$NonForest.Type.2018b), FINALDATASET$NonForest.Type.2018, FINALDATASET$NonForest.Type.2018b)
+FINALDATASET$Crop.Type.2018b <- ifelse(is.na(FINALDATASET$Crop.Type.2018b), FINALDATASET$Crop.Type.2018, FINALDATASET$Crop.Type.2018b)
+FINALDATASET$mixed.lc.pixelb <- ifelse(is.na(FINALDATASET$mixed.lc.pixelb), FINALDATASET$mixed.lc.pixel, FINALDATASET$mixed.lc.pixelb)
+FINALDATASET$confidenceb <- ifelse(is.na(FINALDATASET$confidenceb), FINALDATASET$confidence, FINALDATASET$confidenceb)
+FINALDATASET$confidence.reasoningb <- ifelse(is.na(FINALDATASET$confidence.reasoningb), FINALDATASET$confidence.reasoning, FINALDATASET$confidence.reasoningb)
+
+write.csv(FINALDATASET, file = 'Results\\FINALDATASET_testmerge.csv', row.names = F)
+
+############Set up clean CEO labels - Version 4 NEW
+#In version 4: Pixels with multiple events are combined, agroforestry pulled out
+FINALDATASET$CEOreadable_v4_NEWb <- ifelse(FINALDATASET$ChangeType.1b == "Degradation" & FINALDATASET$ChangeType.2b %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
+                                          ifelse(FINALDATASET$ChangeType.1b == "Deforestation" & FINALDATASET$ChangeType.2b %!in% c("Degradation","Deforestation","Regeneration"), 'Deforestation', 
+                                                 ifelse(FINALDATASET$ChangeType.1b == "Reforestation" & FINALDATASET$ChangeType.2b %!in% c("Degradation","Deforestation","Regeneration"), 'Reforestation',
+                                                        ifelse(FINALDATASET$morethan3.forest.changesb == "no", 'multiple events',
+                                                               ifelse(FINALDATASET$morethan3.forest.changesb == "yes", 'multiple events',
+                                                                      ifelse(FINALDATASET$ChangeType.2b %in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$third.forest.change.eventb == "no", 'multiple events',
+                                                                             ifelse(FINALDATASET$forest.change.eventb == "N/A non-forest entire time" & FINALDATASET$Crop.Type.2000b %in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest Agroforestry",
+                                                                                    ifelse(FINALDATASET$forest.change.eventb == "N/A non-forest entire time" & FINALDATASET$Crop.Type.2000b %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest",
+                                                                                           ifelse(FINALDATASET$forest.change.eventb == "no", "stable forest", 'NotReviewed')))))))))
+table(FINALDATASET$CEOreadable_v4_NEWb)
+
+#######See how much review agreed with original interpretations
+FINALDATASET$reviewagreementrate <- ifelse(FINALDATASET$CEOreadable_v4 == FINALDATASET$CEOreadable_v4_NEWb, 'Agree',
+                                        ifelse(FINALDATASET$CEOreadable_v4 != FINALDATASET$CEOreadable_v4_NEWb, 'Dis','Error'))
+table(FINALDATASET$reviewagreementrate)
+#96 points were reviewed
+#48 points = 'Dis', so 50% of the points reviewed had their interpretation changed
+
+##########################################################################################
+##########################################################################################
+## ANALYSIS REDO
+##########################################################################################
+##########################################################################################
+
+#cross tab of original strata to agroforestry removed strata, updated
+table(FINALDATASET$strata.name, FINALDATASET$CEOreadable_v4_NEWb)
+table_maporig_ceov4_NEW <- table(FINALDATASET$strata.name, FINALDATASET$CEOreadable_v4_NEWb)
+write.csv(table_maporig_ceov4_NEW, file = 'Results\\CrossTable_maporigstrata_ceov4_NEW.csv', row.names = T)
+
+#########################################
+## Set up sample design
+#########################################
+strat_design <- svydesign(id = ~1, strata = ~ReadableChangeStrata_Map_v1, fpc = ~pixel.count, 
+                          data = FINALDATASET)
+########################################
+## once sample design is set up you can analyze the data
+#########################################
+## survey total (svytotal) calculates area weighted totals of data
+?svydesign()
+
+activityData <- svytotal(~CEOreadable_v4_NEWb, strat_design)
+activityData
+
+Change<-as.data.frame(activityData)
+colnames(Change)<-c('Total, pixels','SE, pixels')
+Change
+rownames(Change)<-c("Deforestation", 
+                    "Degradation", 
+                    "multiple events",
+                    "Reforestation",
+                    "stable forest", 
+                    "stable non-forest",
+                    "stable non-forest agroforestry")
+Change
 
 
+## convert to ha
+Change<-Change* 30 * 30 / 10000
+Change
+Change<-round(Change, digits = 0)
+Change
 
+colnames(Change)<-c('Total, ha','SE, ha')
+Change 
 
-
-
-
-
-
-
+#######
+## write results #########
+write.csv(Change, file = 'Results\\AreasofDisturbance_ceoV4version_SAVE_NEW.csv', row.names = T)
 
