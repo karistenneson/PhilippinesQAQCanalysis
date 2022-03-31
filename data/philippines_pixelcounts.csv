@@ -1,9 +1,9 @@
-Map value,strata name,pixel count
-31,deforested epoch 1,16600300
-32,deforested epoch 2 & 3,17853423
-41,reforested epoch 1,4822662
-42,reforested epoch 2 & 3,21821578
-50,stable forest,82877320
-60,stable non forest,148198299
-70,multiple events noise,14083476
-80,multiple events ecologically possible,24146582
+Map value,strata name,pixel count,v3strataname,countv3
+31,deforested epoch 1,16600300,deforested,34453723
+32,deforested epoch 2 & 3,17853423,deforested,34453723
+41,reforested epoch 1,4822662,reforested,26644240
+42,reforested epoch 2 & 3,21821578,reforested,26644240
+50,stable forest,82877320,stable forest,82877320
+60,stable non forest,148198299,stable non forest,148198299
+70,multiple events noise,14083476,multiple events,38230058
+80,multiple events ecologically possible,24146582,multiple events,38230058
