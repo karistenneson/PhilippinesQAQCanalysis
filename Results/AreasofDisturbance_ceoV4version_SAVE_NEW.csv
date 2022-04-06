@@ -1,8 +1,8 @@
-"","Total, ha","SE, ha"
-"Deforestation",752817,145813
-"Degradation",799659,152997
-"multiple events",305977,90409
-"Reforestation",1001835,160376
-"stable forest",7356195,286795
-"stable non-forest",14528623,355990
-"stable non-forest agroforestry",4991221,346318
+Strata,Area,SE
+Deforestation,752817,145813
+Degradation,799659,152997
+multiple events,305977,90409
+Reforestation,1001835,160376
+stable forest,7356195,286795
+stable non-forest,14528623,355990
+stable non-forest agroforestry,4991221,346318

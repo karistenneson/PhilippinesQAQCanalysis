@@ -1,0 +1,3 @@
+PLOTID,SAMPLEID,LON,LAT,CEOreviewQAQC_mappednoise,LC2000,Year_of_first_change,ChangeType_1,Year_of_second_change_,ChangeType_2,ChangeStrata_Map,email
+176,176,119.385158,10.37109487,LabelMulti-MapMulti,forest,2015,Degradation,2016,Degradation,70,janmerelbrazal@gmail.com
+368,368,125.1685118,7.394257682,LabelMulti-MapMulti,non-forest,2010,Reforestation,2016,Deforestation,70,kncabrera@alum.up.edu.ph

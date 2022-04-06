@@ -220,6 +220,13 @@ table(datamerged_FIXED$strata.name, datamerged_FIXED$CEOreadable_v4)
 table_maporig_ceov4 <- table(datamerged_FIXED$strata.name, datamerged_FIXED$CEOreadable_v4)
 write.csv(table_maporig_ceov4, file = 'Results\\CrossTable_maporigstrata_ceov4.csv', row.names = T)
 table(datamerged_FIXED$pixel.count,datamerged_FIXED$strata.name)
+
+#cross tab of simplified mapv3 and ceo v4 agroforestry removed strata
+table(datamerged_FIXED$ReadableChangeStrata_Map_v3, datamerged_FIXED$CEOreadable_v4)
+table_mapv3_ceov4 <- table(datamerged_FIXED$ReadableChangeStrata_Map_v3, datamerged_FIXED$CEOreadable_v4)
+write.csv(table_mapv3_ceov4, file = 'Results\\CrossTable_mapv3_ceov4_simple.csv', row.names = T)
+
+
 #cross tab of strata v2
 table(datamerged_FIXED$ReadableChangeStrata_Map_v2, datamerged_FIXED$CEOreadable_v2)
 table_mapv2_CEOv2 <- table(datamerged_FIXED$ReadableChangeStrata_Map_v2, datamerged_FIXED$CEOreadable_v2)
@@ -236,21 +243,46 @@ write.csv(table_mapv3_CEOv4, file = 'Results\\CrossTable_mapv3_ceov4.csv', row.n
 
 ###########label the points that we want to review in CEO
 datamerged_FIXED$CEOreviewQAQC <-"No"
-datamerged_FIXED$CEOreviewQAQC <- ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "multiple events" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelLoss-MapMulti',
-                                          ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Reforestation" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelLoss-MapReforest',
-                                                 ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "stable forest" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelLoss-MapForest',
-                                                        ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "stable non forest" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelLoss-MapNonForest',
-                                                                      ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Reforestation" & datamerged_FIXED$CEOreadable_v4 == "Degradation", 'LabelDeg-MapReforest',
-                                                                             ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Deforestation" & datamerged_FIXED$CEOreadable_v4 == "Reforestation", 'LabelReforest-MapLoss',
-                                                                                    ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Deforestation" & datamerged_FIXED$CEOreadable_v4 == "stable forest", 'LabelForest-MapLoss',
-                                                                                           ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Deforestation" & datamerged_FIXED$CEOreadable_v4 == "stable non forest", 'LabelNonForest-MapLoss',
-                                                                                                  ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "multiple events" & datamerged_FIXED$CEOreadable_v4 == "stable non forest", 'LabelNonForest-MapMulti',
-                                                                                                         ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Reforestation" & datamerged_FIXED$CEOreadable_v4 == "stable non forest", 'LabelNonForest-MapReforest',
-                                                                                                                ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Reforestation" & datamerged_FIXED$CEOreadable_v4 == "stable forest", 'LabelForest-MapReforest',
-                                                                                           ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "multiple events" & datamerged_FIXED$CEOreadable_v4 == "stable forest", 'LabelForest-MapMulti','No'))))))))))))
+datamerged_FIXED$CEOreviewQAQC <- ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "multiple events" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelLoss-MapMulti', #9
+                                          ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Reforestation" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelLoss-MapReforest', #2
+                                                 ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "stable forest" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelLoss-MapForest', #10
+                                                        ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "stable non forest" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelLoss-MapNonForest', #5
+                                                                      ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Reforestation" & datamerged_FIXED$CEOreadable_v4 == "Degradation", 'LabelDeg-MapReforest', #4
+                                                                             ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Deforestation" & datamerged_FIXED$CEOreadable_v4 == "Reforestation", 'LabelReforest-MapLoss', #4
+                                                                                    ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Deforestation" & datamerged_FIXED$CEOreadable_v4 == "stable forest", 'LabelForest-MapLoss', #24
+                                                                                                                ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Reforestation" & datamerged_FIXED$CEOreadable_v4 == "stable forest", 'LabelForest-MapReforest', #31
+                                                                                           ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "multiple events" & datamerged_FIXED$CEOreadable_v4 == "stable forest", 'LabelForest-MapMulti','No'))))))))) #26
 
 table(datamerged_FIXED$CEOreviewQAQC)
 write.csv(datamerged_FIXED, file = 'Results\\LabeledCSV_CEOtoReview.csv', row.names = T)
+
+########select nonforest labeled points for review
+datamerged_FIXED$CEOreviewQAQC_nonforestlabels <- ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Deforestation" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest", 'LabelNonForest-MapLoss',
+              ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "multiple events" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest", 'LabelNonForest-MapMulti',
+                     ifelse(datamerged_FIXED$ReadableChangeStrata_Map_v3 == "Reforestation" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest", 'LabelNonForest-MapReforest', 'no')))
+table(datamerged_FIXED$CEOreviewQAQC_nonforestlabels)
+
+########select mixednoise mapped points for review
+datamerged_FIXED$CEOreviewQAQC_mappednoise <- ifelse(datamerged_FIXED$strata.name == "multiple events noise" & datamerged_FIXED$CEOreadable_v4 == "Degradation", 'LabelDegradation-MapMulti',
+                                                         ifelse(datamerged_FIXED$strata.name == "multiple events noise" & datamerged_FIXED$CEOreadable_v4 == "Reforestation", 'LabelReforestation-MapMulti',
+                                                                ifelse(datamerged_FIXED$strata.name == "multiple events noise" & datamerged_FIXED$CEOreadable_v4 == "multiple events", 'LabelMulti-MapMulti',
+                                                                ifelse(datamerged_FIXED$strata.name == "multiple events noise" & datamerged_FIXED$CEOreadable_v4 == "Deforestation", 'LabelDeforestation-MapMulti', 
+                                                                       ifelse(datamerged_FIXED$strata.name == "multiple events noise" & datamerged_FIXED$CEOreadable_v4 == "stable forest", 'LabelForest-MapMulti', 
+                                                                       ifelse(datamerged_FIXED$strata.name == "multiple events noise" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest", 'LabelNonforest-MapMulti',      
+                                                                ifelse(datamerged_FIXED$strata.name == "multiple events noise" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapMulti', 'no')))))))
+table(datamerged_FIXED$CEOreviewQAQC_mappednoise)
+write.csv(datamerged_FIXED, file = 'Results\\LabeledCSV_CEOtoReview_mappednoise.csv', row.names = F)
+
+########select labeled perennial points for review
+datamerged_FIXED$CEOreviewQAQC_labeledperennial <- ifelse(datamerged_FIXED$strata.name == "reforested epoch 1" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapREF1',
+                                                     ifelse(datamerged_FIXED$strata.name == "reforested epoch 2 & 3" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapREF23',
+                                                            ifelse(datamerged_FIXED$strata.name == "deforested epoch 1" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapDEF1',
+                                                                   ifelse(datamerged_FIXED$strata.name == "deforested epoch 2 & 3" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapDEF23', 
+                                                                          ifelse(datamerged_FIXED$strata.name == "multiple events ecologically possible" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapMulti', 
+                                                                                 ifelse(datamerged_FIXED$strata.name == "stable forest" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapFOREST',      
+                                                                                        ifelse(datamerged_FIXED$strata.name == "stable non forest" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapNONFOREST', 'no')))))))
+table(datamerged_FIXED$CEOreviewQAQC_labeledperennial)
+write.csv(datamerged_FIXED, file = 'Results\\LabeledPerennial_CEOtoReview.csv', row.names = F)
 #########################################
 ## Set up sample design
 #########################################
@@ -339,11 +371,17 @@ colnames(datamerged_FIXED_v2)[26]<-"Crop.Type.2018b"
 colnames(datamerged_FIXED_v2)[27]<-"mixed.lc.pixelb"
 colnames(datamerged_FIXED_v2)
 
+
+
+
 dim(datamerged_FIXED)
 FINALDATASET <- merge(datamerged_FIXED, datamerged_FIXED_v2, by.x = c("sampleid"), by.y = c("sampleid"), all.x = T)
 dim(FINALDATASET)
 colnames(FINALDATASET)
 head(FINALDATASET)
+
+
+
 ####Fill in all the values for the rows that were not reviewed with the original answers
 FINALDATASET$LC2000b <- ifelse(is.na(FINALDATASET$LC2000b), FINALDATASET$LC2000, FINALDATASET$LC2000b)
 FINALDATASET$Forest.Type.2000b <- ifelse(is.na(FINALDATASET$Forest.Type.2000b), FINALDATASET$Forest.Type.2000, FINALDATASET$Forest.Type.2000b)
@@ -389,18 +427,54 @@ FINALDATASET$CEOreadable_v4_NEWb <- ifelse(FINALDATASET$ChangeType.1b == "Degrad
                                                                                            ifelse(FINALDATASET$forest.change.eventb == "no", "stable forest", 'NotReviewed')))))))))
 table(FINALDATASET$CEOreadable_v4_NEWb)
 
+########Simplified Map data
+FINALDATASET$ReadableChangeStrata_Map_v3<-"fixMe"
+FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 31]<-"Deforestation"
+FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 32]<-"Deforestation"
+FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 41]<-"Reforestation"
+FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 42]<-"Reforestation"
+FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 50]<-"stable forest"
+FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 60]<-"stable non forest"
+FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 70]<-"multiple events"
+FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 80]<-"multiple events"
+unique(FINALDATASET$ReadableChangeStrata_Map_v3)
+colnames(FINALDATASET)
+
+###########select multiple events points for review
+FINALDATASET$CEOreviewQAQC_multipleevents <- ifelse(FINALDATASET$strata.name == "multiple events ecologically possible"  & FINALDATASET$CEOreadable_v4_NEWb == "Deforestation", 'LabelLoss-MapMulti',
+                                                           ifelse(FINALDATASET$strata.name == "multiple events ecologically possible" & FINALDATASET$CEOreadable_v4_NEWb == "Degradation", 'LabelDeg-MapMulti', 
+                                                                  ifelse(FINALDATASET$strata.name == "multiple events ecologically possible" & FINALDATASET$CEOreadable_v4_NEWb == "Reforestation", 'LabelReforest-MapMulti',
+                                                                         ifelse(FINALDATASET$strata.name == "multiple events ecologically possible" & FINALDATASET$CEOreadable_v4_NEWb == "stable forest", 'LabelForest-MapMulti',
+                                                                                ifelse(FINALDATASET$strata.name == "multiple events ecologically possible" & FINALDATASET$CEOreadable_v4_NEWb == "multiple events", 'LabelMulti-MapMulti',
+                                                                                       ifelse(FINALDATASET$strata.name == "multiple events ecologically possible" & FINALDATASET$CEOreadable_v4_NEWb == "stable nonforest", 'LabelNonforest-MapMulti',                                                                                      
+                                                                                       ifelse(FINALDATASET$strata.name == "multiple events ecologically possible" & FINALDATASET$CEOreadable_v4_NEWb == "stable nonforest Agroforestry", 'LabelAgroforest-MapMulti','No')))))))
+table(FINALDATASET$CEOreviewQAQC_multipleevents)
+write.csv(FINALDATASET, file = 'Results\\CEOreviewQAQC_multipleevents.csv', row.names = T)
+
+###############################################
+
 #######See how much review agreed with original interpretations
 FINALDATASET$reviewagreementrate <- ifelse(FINALDATASET$CEOreadable_v4 == FINALDATASET$CEOreadable_v4_NEWb, 'Agree',
                                         ifelse(FINALDATASET$CEOreadable_v4 != FINALDATASET$CEOreadable_v4_NEWb, 'Dis','Error'))
 table(FINALDATASET$reviewagreementrate)
+
+write.csv(FINALDATASET, file = 'Results\\FINALDATASET_useforreview.csv', row.names = F)
 #96 points were reviewed
 #48 points = 'Dis', so 50% of the points reviewed had their interpretation changed
-
+table(FINALDATASET$CEOreadable_v4,FINALDATASET$CEOreadable_v4_NEWb)
+table_compare_SMEpart1_toorig <- table(FINALDATASET$CEOreadable_v4,FINALDATASET$CEOreadable_v4_NEWb)
+write.csv(table_compare_SMEpart1_toorig, file = 'Results\\table_compare_SMEpart1_toorig.csv', row.names = T)
 ##########################################################################################
 ##########################################################################################
 ## ANALYSIS REDO
 ##########################################################################################
 ##########################################################################################
+#cross tab of simplified mapv3 and ceo v4 agroforestry removed strata
+table(FINALDATASET$ReadableChangeStrata_Map_v3, FINALDATASET$CEOreadable_v4_NEWb)
+table_mapv3_ceov4_NEW <- table(FINALDATASET$ReadableChangeStrata_Map_v3, FINALDATASET$CEOreadable_v4_NEWb)
+write.csv(table_mapv3_ceov4_NEW, file = 'Results\\CrossTable_mapv3_ceov4_simple_NEW.csv', row.names = T)
+
+
 
 #cross tab of original strata to agroforestry removed strata, updated
 table(FINALDATASET$strata.name, FINALDATASET$CEOreadable_v4_NEWb)
