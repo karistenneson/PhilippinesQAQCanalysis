@@ -18,7 +18,8 @@ setwd("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalys
 dataCEO <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\ceo-Philippines_Change_madeJan18_SingleInterpretation_Final_V2-sample-data-2022-03-02_no duplicates.csv')
 #find the erroneously duplicated plots, which should not be duplicates. Asked which should be kept.
 dataCEO$ï..plotid[duplicated(dataCEO$ï..plotid)] #found 274 282 288 288 330 393 868
-dataCEO$lon[duplicated(dataCEO$lon)]
+sort(dataCEO$lon[duplicated(dataCEO$lon)])
+duplicated(dataCEO[c("lon","lat")])
 dataCEO$lon[duplicated(dataCEO$lat)]
 dim(dataCEO)
 table(dataCEO$Land.cover.in.2000.)
@@ -39,10 +40,53 @@ colnames(dataCEO)[colnames(dataCEO) == "ï..plotid"] <- "plotid"
 colnames(dataCEO)==colnames(dataCEO_TOADD)
 
 #group interpreted CEO points
-dataCEO_combo<-rbind(dataCEO_TOADD, dataCEO)
+dataCEO_combo <- merge(dataCEO, dataCEO_TOADD, by.x =c('lon','lat'), by.y = c('lon','lat'), all.x=T)
+dim(dataCEO_combo)
+##dataCEO_combo<-rbind(dataCEO_TOADD, dataCEO) ##removed because lon/lat of TOADD are in dataCEO_combo
 nrow(dataCEO_combo)
 head(dataCEO_combo)
 tail(dataCEO_combo)
+
+###########RESOLVE THE DUPLICATES BETWEEN THE ADDED DATA AND SINGLE INTERPRETATIONS
+###########THE QAQC POINTS WILL REPLACE THOSE DONE BY SINGLE INTERPRETERS
+##########################################################
+#An inelegant way to combine the QAQC data with the original
+for(i in 1:nrow(dataCEO_combo)) {
+  dataCEO_combo$confidence<-ifelse(is.na(dataCEO_combo[,53]), dataCEO_combo[,14], 
+                           ifelse(!is.na(dataCEO_combo[,53]), dataCEO_combo[,53],'nope'))
+}
+for(i in 1:nrow(dataCEO_combo)) {
+  dataCEO_combo$CHANGESTRATA_check<-ifelse(is.na(dataCEO_combo[,34]), dataCEO_combo[,13], 
+                                        ifelse(!is.na(dataCEO_combo[,34]), dataCEO_combo[,33],'nope'))
+}
+for(i in 1:nrow(dataCEO_combo)) {
+  dataCEO_combo$DISTURBANCE<-ifelse(is.na(dataCEO_combo[,34]), dataCEO_combo[,14], 
+                                 ifelse(!is.na(dataCEO_combo[,34]), dataCEO_combo[,34],'nope'))
+}
+for(i in 1:nrow(dataCEO_combo)) {
+  dataCEO_combo$DISTTYPE<-ifelse(is.na(dataCEO_combo[,34]), dataCEO_combo[,15], 
+                              ifelse(!is.na(dataCEO_combo[,34]), dataCEO_combo[,35],'nope'))
+}
+for(i in 1:nrow(dataCEO_combo)) {
+  dataCEO_combo$DESCRIBE_DIST<-ifelse(is.na(dataCEO_combo[,34]), dataCEO_combo[,16], 
+                                   ifelse(!is.na(dataCEO_combo[,34]), dataCEO_combo[,36],'nope'))
+}
+for(i in 1:nrow(dataCEO_combo)) {
+  dataCEO_combo$YEAR<-ifelse(is.na(dataCEO_combo[,34]), dataCEO_combo[,17], 
+                          ifelse(!is.na(dataCEO_combo[,34]), dataCEO_combo[,37],'nope'))
+}
+for(i in 1:nrow(dataCEO_combo)) {
+  dataCEO_combo$DEF_DRIVER<-ifelse(is.na(dataCEO_combo[,34]), dataCEO_combo[,18], 
+                                ifelse(!is.na(dataCEO_combo[,34]), dataCEO_combo[,38],'nope'))
+}
+for(i in 1:nrow(dataCEO_combo)) {
+  dataCEO_combo$DEG_DRIVER<-ifelse(is.na(dataCEO_combo[,34]), dataCEO_combo[,19], 
+                                ifelse(!is.na(dataCEO_combo[,34]), dataCEO_combo[,39],'nope'))
+}
+
+
+
+
 
 #Update the column names for original CEO data to shorten them
 colnames(dataCEO_combo)
@@ -278,11 +322,15 @@ datamerged_FIXED$CEOreviewQAQC_labeledperennial <- ifelse(datamerged_FIXED$strat
                                                      ifelse(datamerged_FIXED$strata.name == "reforested epoch 2 & 3" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapREF23',
                                                             ifelse(datamerged_FIXED$strata.name == "deforested epoch 1" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapDEF1',
                                                                    ifelse(datamerged_FIXED$strata.name == "deforested epoch 2 & 3" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapDEF23', 
-                                                                          ifelse(datamerged_FIXED$strata.name == "multiple events ecologically possible" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapMulti', 
+                                                                          ifelse(datamerged_FIXED$strata.name == "multiple events ecologically possible" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapMulti',
+                                                                                 ifelse(datamerged_FIXED$strata.name == "multiple events noise" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapMultiNoise',       
                                                                                  ifelse(datamerged_FIXED$strata.name == "stable forest" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapFOREST',      
-                                                                                        ifelse(datamerged_FIXED$strata.name == "stable non forest" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapNONFOREST', 'no')))))))
+                                                                                        ifelse(datamerged_FIXED$strata.name == "stable non forest" & datamerged_FIXED$CEOreadable_v4 == "stable nonforest Agroforestry", 'LabelPerennial-MapNONFOREST', 'no'))))))))
 table(datamerged_FIXED$CEOreviewQAQC_labeledperennial)
-write.csv(datamerged_FIXED, file = 'Results\\LabeledPerennial_CEOtoReview.csv', row.names = F)
+write.csv(datamerged_FIXED, file = 'Results\\USETHIS4CEO_LabeledPerennial_CEOtoReview.csv', row.names = F)
+table(duplicated(datamerged_FIXED[c("lon","lat")]))
+table(duplicated(datamerged_FIXED$lon))
+table(duplicated(datamerged_FIXED$lat))
 #########################################
 ## Set up sample design
 #########################################

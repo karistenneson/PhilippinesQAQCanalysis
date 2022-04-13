@@ -1,0 +1,26 @@
+PLOTID,SAMPLEID,LON,LAT,ChangeStrata_Map,CEOreadable_v4,CEOreviewQAQC,CEOreviewQAQC_nonforestlabels,CEOreviewQAQC_mappednoise,CEOreviewQAQC_labeledperennial,email,strata_name,LC2000,Crop_Type_2000,LC2018end,mixed_lc_pixel
+120,120,120.9018736,12.70842141,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,jiniayaneza@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,Not Measured
+122,122,122.1175636,6.705968512,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,tgisorena@yahoo.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,Not Measured
+129,129,124.386708,8.381146854,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,tgisorena@yahoo.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,Not Measured
+158,158,121.1926582,13.64356762,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,buencilloharold@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+211,211,121.5101228,13.126677,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,leizeldelacruz@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+217,217,120.9018736,12.70842141,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,janmerelbrazal@gmail.com,deforested epoch 1,non-forest,unsure,non-forest,no
+234,234,121.2511385,16.47730318,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,leizeldelacruz@gmail.com,deforested epoch 1,non-forest,unsure,non-forest,no
+254,254,121.4139133,12.56235534,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,leizeldelacruz@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+335,335,122.1175636,6.705968512,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,perezazisah@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+344,344,123.4618026,8.593239092,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,hannagisellerico@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+390,390,122.0509985,16.67295625,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,leizeldelacruz@gmail.com,deforested epoch 1,non-forest,unsure,non-forest,yes
+399,399,124.6648264,6.240820858,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,kncabrera@alum.up.edu.ph,deforested epoch 1,non-forest,coconut / other palm,non-forest,yes
+432,432,123.4313497,12.47773404,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,leizeldelacruz@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+514,514,122.1668811,7.57805299,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,buencilloharold@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+525,525,121.353816,14.11706961,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,perezazisah@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,yes
+548,548,121.9844333,6.648566165,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,kgervespiritu@gmail.com,deforested epoch 1,non-forest,unsure,non-forest,no
+583,583,123.8191524,8.072306059,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,leizeldelacruz@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+598,598,124.9884894,11.14831725,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,tgisorena@yahoo.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,yes
+641,641,123.6218824,12.2707622,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,hannagisellerico@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+661,661,122.7206925,7.863986744,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,leizeldelacruz@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+681,681,122.397299,13.95186942,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,hannagisellerico@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+704,704,124.386708,8.381146854,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,janmerelbrazal@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,yes
+773,773,121.8464521,14.01385318,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,jiniayaneza@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+895,895,121.5882763,14.81964199,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,perezazisah@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no
+953,953,125.2504382,12.37909903,31,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapDEF1,dennismontoya.fgdis@gmail.com,deforested epoch 1,non-forest,coconut / other palm,non-forest,no

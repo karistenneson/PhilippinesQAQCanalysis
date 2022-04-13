@@ -1,9 +1,9 @@
 "","Deforestation","Degradation","multiple events","Reforestation","stable forest","stable nonforest","stable nonforest Agroforestry"
-"deforested epoch 1",3,4,2,3,8,15,25
-"deforested epoch 2 & 3",2,1,0,1,16,23,17
-"multiple events ecologically possible",3,2,3,2,18,21,17
-"multiple events noise",6,3,2,3,8,23,15
-"reforested epoch 1",2,2,1,7,23,8,17
-"reforested epoch 2 & 3",0,2,0,6,8,29,15
-"stable forest",10,10,0,1,175,7,24
-"stable non forest",5,2,0,5,12,335,48
+"deforested epoch 1",3,4,1,3,7,12,21
+"deforested epoch 2 & 3",2,1,0,0,12,21,15
+"multiple events ecologically possible",1,3,3,2,16,17,14
+"multiple events noise",6,4,2,2,7,19,11
+"reforested epoch 1",1,2,1,6,19,7,15
+"reforested epoch 2 & 3",0,2,1,4,6,25,13
+"stable forest",7,8,0,1,153,7,17
+"stable non forest",4,1,0,4,9,285,43

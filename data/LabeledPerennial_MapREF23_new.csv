@@ -1,0 +1,16 @@
+PLOTID,SAMPLEID,LON,LAT,ChangeStrata_Map,CEOreadable_v4,CEOreviewQAQC,CEOreviewQAQC_nonforestlabels,CEOreviewQAQC_mappednoise,CEOreviewQAQC_labeledperennial,email,strata_name,LC2000,Crop_Type_2000,LC2018end,mixed_lc_pixel
+12,12,122.1240315,13.85134794,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,leizeldelacruz@gmail.com,reforested epoch 2 & 3,non-forest,"fruit trees (mango, cashew, avocado, rambutan durian)",non-forest,Not Measured
+107,107,123.8107981,12.96632773,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,dennismontoya.fgdis@gmail.com,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,Not Measured
+244,244,123.0934035,8.46792411,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,kncabrera@alum.up.edu.ph,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,no
+251,251,122.249616,7.972862557,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,kncabrera@alum.up.edu.ph,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,no
+296,296,123.8107981,12.96632773,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,tgisorena@yahoo.com,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,no
+349,349,122.2183546,10.66565245,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,leizeldelacruz@gmail.com,reforested epoch 2 & 3,non-forest,unsure,non-forest,no
+382,382,123.3178925,8.394621583,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,leizeldelacruz@gmail.com,reforested epoch 2 & 3,non-forest,"fruit trees (mango, cashew, avocado, rambutan durian)",non-forest,no
+434,434,125.0655649,7.713069777,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,leizeldelacruz@gmail.com,reforested epoch 2 & 3,non-forest,"fruit trees (mango, cashew, avocado, rambutan durian)",non-forest,yes
+465,465,124.3635315,7.536011834,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,hannagisellerico@gmail.com,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,no
+573,573,120.3461757,15.27805228,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,leizeldelacruz@gmail.com,reforested epoch 2 & 3,non-forest,unsure,non-forest,no
+690,690,121.9464346,13.86967358,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,hannagisellerico@gmail.com,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,no
+722,722,124.3311922,9.631601729,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,leizeldelacruz@gmail.com,reforested epoch 2 & 3,non-forest,"fruit trees (mango, cashew, avocado, rambutan durian)",non-forest,yes
+766,766,123.4771638,8.359856781,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,dennismontoya.fgdis@gmail.com,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,no
+816,816,117.0330093,8.123779525,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,perezazisah@gmail.com,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,no
+937,937,126.0953037,7.564847755,42,stable nonforest Agroforestry,No,no,no,LabelPerennial-MapREF23,dennismontoya.fgdis@gmail.com,reforested epoch 2 & 3,non-forest,coconut / other palm,non-forest,no
