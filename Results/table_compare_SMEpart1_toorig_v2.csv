@@ -1,8 +1,9 @@
-"","Deforestation","Degradation","multiple events","Reforestation","stable forest","stable nonforest","stable nonforest Agroforestry"
-"Deforestation",13,1,2,3,2,2,1
-"Degradation",0,20,0,3,1,1,0
-"multiple events",0,0,8,0,0,0,0
-"Reforestation",2,0,0,20,0,0,0
-"stable forest",7,3,1,12,205,1,0
-"stable nonforest",0,0,0,0,0,393,0
-"stable nonforest Agroforestry",0,0,0,0,0,0,149
+,,New Labels,,,,,,
+,,Deforestation,Degradation,multiple events,Reforestation,stable forest,stable nonforest,stable perennial
+Old Labels,Deforestation,13,1,2,3,2,2,1
+,Degradation,0,20,0,3,1,1,0
+,multiple events,0,0,8,0,0,0,0
+,Reforestation,2,0,0,20,0,0,0
+,stable forest,7,3,1,12,205,1,0
+,stable nonforest,0,0,0,0,0,393,0
+,stable perennial,0,0,0,0,0,0,149

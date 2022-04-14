@@ -1,6 +1,8 @@
 #Unbiased Area Estimation of Philippines Forest Change
 #Written by Karis Tenneson and Crystal Wespestad (SIG) Feb, 2022
 #####################################################################
+#Notes: epochs are 2000-2005, 2006-2012, 2013-2018
+#there are 850 points total, 150 have been reviewed in duplicate 
 
 library(survey)
 library(tidyverse)
@@ -241,17 +243,7 @@ colnames(datamerged_FIXED)
 
 
 ########Simplified Map data
-datamerged_FIXED$ReadableChangeStrata_Map_v3<-"fixMe"
-datamerged_FIXED$ReadableChangeStrata_Map_v3[datamerged_FIXED$ChangeStrata_Map == 31]<-"Deforestation"
-datamerged_FIXED$ReadableChangeStrata_Map_v3[datamerged_FIXED$ChangeStrata_Map == 32]<-"Deforestation"
-datamerged_FIXED$ReadableChangeStrata_Map_v3[datamerged_FIXED$ChangeStrata_Map == 41]<-"Reforestation"
-datamerged_FIXED$ReadableChangeStrata_Map_v3[datamerged_FIXED$ChangeStrata_Map == 42]<-"Reforestation"
-datamerged_FIXED$ReadableChangeStrata_Map_v3[datamerged_FIXED$ChangeStrata_Map == 50]<-"stable forest"
-datamerged_FIXED$ReadableChangeStrata_Map_v3[datamerged_FIXED$ChangeStrata_Map == 60]<-"stable non forest"
-datamerged_FIXED$ReadableChangeStrata_Map_v3[datamerged_FIXED$ChangeStrata_Map == 70]<-"multiple events"
-datamerged_FIXED$ReadableChangeStrata_Map_v3[datamerged_FIXED$ChangeStrata_Map == 80]<-"multiple events"
-unique(datamerged_FIXED$ReadableChangeStrata_Map_v3)
-colnames(datamerged_FIXED)
+
 
 ############## Strata pixel counts #############
 strataAreas <- read.csv("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\philippines_pixelcounts.csv")
@@ -323,7 +315,7 @@ head(datamerged_FIXED)
 #cross tab of original strata to agroforestry removed strata
 table(datamerged_FIXED$StrataName, datamerged_FIXED$CEOreadable_v4)
 table_maporig_ceov4 <- table(datamerged_FIXED$StrataName, datamerged_FIXED$CEOreadable_v4)
-write.csv(table_maporig_ceov4, file = 'Results\\CrossTable_maporigstrata_ceov4.csv', row.names = T)
+write.csv(table_maporig_ceov4, file = 'Results\\CrossTable_maporigstrata_ceov4_v2.csv', row.names = T)
 table(datamerged_FIXED$PixelCount,datamerged_FIXED$StrataName)
 
 #cross tab of simplified mapv3 and ceo v4 agroforestry removed strata
@@ -395,7 +387,7 @@ table(duplicated(datamerged_FIXED$lat))
 #########################################
 ## Set up sample design
 #########################################
-strat_design <- svydesign(id = ~1, strata = ~ReadableChangeStrata_Map_v1, fpc = ~PixelCount, 
+strat_design <- svydesign(id = ~1, strata = ~StrataName, fpc = ~PixelCount, 
                           data = datamerged_FIXED)
 ########################################
 ## once sample design is set up you can analyze the data
@@ -531,6 +523,21 @@ FINALDATASET$CEOreadable_v4_NEWb <- ifelse(FINALDATASET$ChangeType1b == "Degrada
                                                                                            ifelse(FINALDATASET$forestChangeEventb == "no", "stable forest", 'NotReviewed')))))))))
 table(FINALDATASET$CEOreadable_v4_NEWb)
 
+#In version 5: Pixels with multiple events are combined, agroforestry pulled out, separated by epoch
+FINALDATASET$CEOreadable_v5_NEWb <- ifelse(FINALDATASET$ChangeType1b == "Degradation" & FINALDATASET$ChangeType2b %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
+                                           ifelse(FINALDATASET$ChangeType1b == "Deforestation" & FINALDATASET$ChangeType2b %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yearb %in% c(2000:2005), 'Deforestation Epoch1', 
+                                           ifelse(FINALDATASET$ChangeType1b == "Deforestation" & FINALDATASET$ChangeType2b %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yearb %in% c(2006:2018), 'Deforestation Epoch23',
+                                                  ifelse(FINALDATASET$ChangeType1b == "Reforestation" & FINALDATASET$ChangeType2b %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yearb %in% c(2000:2005), 'Reforestation Epoch1',
+                                                         ifelse(FINALDATASET$ChangeType1b == "Reforestation" & FINALDATASET$ChangeType2b %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yearb %in% c(2006:2018), 'Reforestation Epoch23',       
+                                                         ifelse(FINALDATASET$morethan3forestchangesb == "no", 'multiple events eco possible',
+                                                                ifelse(FINALDATASET$morethan3forestchangesb == "yes", 'multiple events noise',
+                                                                       ifelse(FINALDATASET$ChangeType2b %in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$ThirdForestChangeEventb == "no", 'multiple events eco possible',
+                                                                              ifelse(FINALDATASET$forestChangeEventb == "N/A non-forest entire time" & FINALDATASET$CropType2000b %in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest Agroforestry",
+                                                                                     ifelse(FINALDATASET$forestChangeEventb == "N/A non-forest entire time" & FINALDATASET$CropType2000b %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest",
+                                                                                            ifelse(FINALDATASET$forestChangeEventb == "no", "stable forest", 'NotReviewed')))))))))))
+table(FINALDATASET$CEOreadable_v5_NEWb)
+
+
 ########Simplified Map data
 FINALDATASET$ReadableChangeStrata_Map_v3<-"fixMe"
 FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 31]<-"Deforestation"
@@ -543,6 +550,17 @@ FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 70]<-"
 FINALDATASET$ReadableChangeStrata_Map_v3[FINALDATASET$ChangeStrata_Map == 80]<-"multiple events"
 unique(FINALDATASET$ReadableChangeStrata_Map_v3)
 colnames(FINALDATASET)
+
+
+#cross tab of NEW simplified mapv3 and ceo v4 agroforestry removed strata
+table(FINALDATASET$ReadableChangeStrata_Map_v3, FINALDATASET$CEOreadable_v4_NEWb)
+table_mapv3_ceov4 <- table(FINALDATASET$ReadableChangeStrata_Map_v3, FINALDATASET$CEOreadable_v4_NEWb)
+write.csv(table_mapv3_ceov4, file = 'Results\\CrossTable_mapv3_ceov4_simple_v2.csv', row.names = T)
+
+#cross tab of NEW strataorig and ceov5, agroforestry pulled out, separated by epoch
+table(FINALDATASET$StrataName, FINALDATASET$CEOreadable_v5_NEWb)
+table_strataname_ceov5 <- table(FINALDATASET$StrataName, FINALDATASET$CEOreadable_v5_NEWb)
+write.csv(table_strataname_ceov5, file = 'Results\\CrossTable_strataname_ceov5_epochseparated_v2.csv', row.names = T)
 
 ###########select multiple events points for review
 FINALDATASET$CEOreviewQAQC_multipleevents <- ifelse(FINALDATASET$StrataName == "multiple events ecologically possible"  & FINALDATASET$CEOreadable_v4_NEWb == "Deforestation", 'LabelLoss-MapMulti',

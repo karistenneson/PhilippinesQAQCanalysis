@@ -11,18 +11,20 @@ library(networkD3)
 library(tidyverse)
 library(dplyr)
 library(scales)
-library(lubridate)
+#library(lubridate)
 setwd("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis")
 
 
 # area csv
 #dataarea_NEW <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_NEW.csv') #R results
-dataarea_NEW <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_NEW_OlafssonWay.csv')
+#dataarea_NEW <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_NEW_OlafssonWay.csv')
+dataarea_NEW <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_NEW_OlafssonWay_v2.csv')
 dataarea_NEW$phase<-'review'
 dataarea_NEW
 # area csv
 #dataarea_old <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_Old.csv') #R results
-dataarea_old <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_OLD_OlafssonWay.csv')
+#dataarea_old <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_OLD_OlafssonWay.csv')
+dataarea_old <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_OLD_OlafssonWay_v2.csv')
 dataarea_old$phase<-'initial'
 colnames(dataarea_old)[1]<-"Strata"
 dataarea_old
