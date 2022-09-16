@@ -18,7 +18,7 @@ setwd("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalys
 # area csv
 #dataarea_NEW <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_NEW.csv') #R results
 #dataarea_NEW <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_NEW_OlafssonWay.csv')
-dataarea_NEW <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_NEW_OlafssonWay_v2.csv')
+dataarea_NEW <- read.csv('Results\\AreasofDisturbance_ceoV4version_SAVE_NEW_OlafssonWay_v4.csv')
 dataarea_NEW$phase<-'review'
 dataarea_NEW
 # area csv

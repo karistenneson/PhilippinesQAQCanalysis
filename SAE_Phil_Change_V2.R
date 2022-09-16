@@ -432,7 +432,7 @@ write.csv(Change, file = 'Results\\AreasofDisturbance_ceoV4version_SAVE_v2_850.c
 ##there were more off-diagonal points than were expected in the confusion matrix
 ##Below is the updated analysis with those points altered
 
-datamerged_FIXED_v2 <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\ceo-Philippines_QAQCReview_MapInterpreterDisagreement-sample-data-FIXED.csv')
+datamerged_FIXED_v2 <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\ceo-Philippines_QAQCReview_MapInterpreterDisagreement-sample-data-FIXEDhandedit.csv')
 colnames(datamerged_FIXED_v2)
 datamerged_FIXED_v2 <- datamerged_FIXED_v2[-c(1,3:80)]
 colnames(datamerged_FIXED_v2)
@@ -440,76 +440,78 @@ colnames(datamerged_FIXED)
 head(datamerged_FIXED$PLOTID)
 head(datamerged_FIXED_v2$sampleid)
 
-colnames(datamerged_FIXED_v2)[7]<-"Change1yearb"
-colnames(datamerged_FIXED_v2)[12]<-"Change2yearb"
-colnames(datamerged_FIXED_v2)[19]<-"Change3yearb"
-colnames(datamerged_FIXED_v2)[28]<-"Confidenceb"
-colnames(datamerged_FIXED_v2)[29]<-"ConfidenceReasoningb"
-colnames(datamerged_FIXED_v2)[2]<-"LC2000b"
-colnames(datamerged_FIXED_v2)[3]<-"ForestType2000b"
-colnames(datamerged_FIXED_v2)[4]<-"NonForestType2000b" 
-colnames(datamerged_FIXED_v2)[5]<-"CropType2000b" 
-colnames(datamerged_FIXED_v2)[23]<-"LC2018endb"
-colnames(datamerged_FIXED_v2)[6]<-"forestChangeEventb" 
-colnames(datamerged_FIXED_v2)[20]<-"ChangeType1b"
-colnames(datamerged_FIXED_v2)[22]<-"DegradationDriver1b"
-colnames(datamerged_FIXED_v2)[21]<-"LossDriver1b"
-colnames(datamerged_FIXED_v2)[8]<-"SecondForestChangeEventb"
-colnames(datamerged_FIXED_v2)[9]<-"ChangeType2b"
-colnames(datamerged_FIXED_v2)[10]<-"DegradationDriver2b"
-colnames(datamerged_FIXED_v2)[11]<-"LossDriver2b"
-colnames(datamerged_FIXED_v2)[13]<-"ThirdForestChangeEventb" 
-colnames(datamerged_FIXED_v2)[14]<-"ChangeType3b"
-colnames(datamerged_FIXED_v2)[16]<-"DegradationDriver3b"
-colnames(datamerged_FIXED_v2)[15]<-"LossDriver3b"
-colnames(datamerged_FIXED_v2)[17]<-"morethan3forestchangesb" 
-colnames(datamerged_FIXED_v2)[18]<-"DescribeExtraChangesb" 
-colnames(datamerged_FIXED_v2)[24]<-"ForestType2018b" 
-colnames(datamerged_FIXED_v2)[25]<-"NonForestType2018b" 
-colnames(datamerged_FIXED_v2)[26]<-"CropType2018b" 
-colnames(datamerged_FIXED_v2)[27]<-"mixedLCpixelb"
-colnames(datamerged_FIXED_v2)
-
-dim(datamerged_FIXED)
-FINALDATASET <- merge(datamerged_FIXED, datamerged_FIXED_v2, by.x = c("PLOTID"), by.y = c("sampleid"), all.x = T)
-dim(FINALDATASET)
-colnames(FINALDATASET)
-head(FINALDATASET)
+#########More points were reviewed by SMEs
+#SMEreviewdData_toreplaceold <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\ceo-ALLPOINTS_Philippines_QAQCReview_MapInterpreterDisagreement-sample-data-2022-05-04_SMEreview.csv')
+#SMEreviewdData_toreplaceold <- SMEreviewdData_toreplaceold[-c(1,5:55)]
+#SMEreviewdData_toreplaceold <- SMEreviewdData_toreplaceold[-c(1,6:11,17:18)]
 
 
+colnames(SMEreviewdData_toreplaceold)[52]<-"Change1yearb"
+colnames(SMEreviewdData_toreplaceold)[57]<-"Change2yearb"
+colnames(SMEreviewdData_toreplaceold)[64]<-"Change3yearb"
+colnames(SMEreviewdData_toreplaceold)[73]<-"Confidenceb"
+colnames(SMEreviewdData_toreplaceold)[74]<-"ConfidenceReasoningb"
+colnames(SMEreviewdData_toreplaceold)[47]<-"LC2000b"
+colnames(SMEreviewdData_toreplaceold)[48]<-"ForestType2000b"
+colnames(SMEreviewdData_toreplaceold)[49]<-"NonForestType2000b" 
+colnames(SMEreviewdData_toreplaceold)[50]<-"CropType2000b" 
+colnames(SMEreviewdData_toreplaceold)[68]<-"LC2018endb"
+colnames(SMEreviewdData_toreplaceold)[51]<-"forestChangeEventb" 
+colnames(SMEreviewdData_toreplaceold)[65]<-"ChangeType1b"
+colnames(SMEreviewdData_toreplaceold)[67]<-"DegradationDriver1b"
+colnames(SMEreviewdData_toreplaceold)[66]<-"LossDriver1b"
+colnames(SMEreviewdData_toreplaceold)[53]<-"SecondForestChangeEventb"
+colnames(SMEreviewdData_toreplaceold)[54]<-"ChangeType2b"
+colnames(SMEreviewdData_toreplaceold)[55]<-"DegradationDriver2b"
+colnames(SMEreviewdData_toreplaceold)[56]<-"LossDriver2b"
+colnames(SMEreviewdData_toreplaceold)[58]<-"ThirdForestChangeEventb" 
+colnames(SMEreviewdData_toreplaceold)[59]<-"ChangeType3b"
+colnames(SMEreviewdData_toreplaceold)[61]<-"DegradationDriver3b"
+colnames(SMEreviewdData_toreplaceold)[60]<-"LossDriver3b"
+colnames(SMEreviewdData_toreplaceold)[62]<-"morethan3forestchangesb" 
+colnames(SMEreviewdData_toreplaceold)[63]<-"DescribeExtraChangesb" 
+colnames(SMEreviewdData_toreplaceold)[69]<-"ForestType2018b" 
+colnames(SMEreviewdData_toreplaceold)[70]<-"NonForestType2018b" 
+colnames(SMEreviewdData_toreplaceold)[71]<-"CropType2018b" 
+colnames(SMEreviewdData_toreplaceold)[72]<-"mixedLCpixelb"
+colnames(SMEreviewdData_toreplaceold)
+
+
+#FINALDATASET <- merge(datamerged_FIXED, SMEreviewdData_toreplaceold, by.x = c("PLOTID"), by.y = c("sampleid"), all.x = T)
 
 ####Fill in all the values for the rows that were not reviewed with the original answers
-FINALDATASET$LC2000b <- ifelse(is.na(FINALDATASET$LC2000b), FINALDATASET$LC2000a, FINALDATASET$LC2000b)
-FINALDATASET$ForestType2000b <- ifelse(is.na(FINALDATASET$ForestType2000b), FINALDATASET$ForestType2000, FINALDATASET$ForestType2000b)
-FINALDATASET$NonForestType2000b <- ifelse(is.na(FINALDATASET$NonForestType2000b), FINALDATASET$NonForestType2000, FINALDATASET$NonForestType2000b)
-FINALDATASET$CropType2000b <- ifelse(is.na(FINALDATASET$CropType2000b), FINALDATASET$CropType2000, FINALDATASET$CropType2000b)
-FINALDATASET$forestChangeEventb <- ifelse(is.na(FINALDATASET$forestChangeEventb), FINALDATASET$forestChangeEvent, FINALDATASET$forestChangeEventb)
-FINALDATASET$Change1yearb <- ifelse(is.na(FINALDATASET$Change1yearb), FINALDATASET$Change1year, FINALDATASET$Change1yearb)
-FINALDATASET$SecondForestChangeEventb <- ifelse(is.na(FINALDATASET$SecondForestChangeEventb), FINALDATASET$SecondForestChangeEvent, FINALDATASET$SecondForestChangeEventb)
-FINALDATASET$ChangeType2b <- ifelse(is.na(FINALDATASET$ChangeType2b), FINALDATASET$ChangeType2, FINALDATASET$ChangeType2b)
-FINALDATASET$DegradationDriver2b <- ifelse(is.na(FINALDATASET$DegradationDriver2b), FINALDATASET$DegradationDriver2, FINALDATASET$DegradationDriver2b)
-FINALDATASET$LossDriver2b <- ifelse(is.na(FINALDATASET$LossDriver2b), FINALDATASET$LossDriver2, FINALDATASET$LossDriver2b)
-FINALDATASET$Change2yearb <- ifelse(is.na(FINALDATASET$Change2yearb), FINALDATASET$Change2year, FINALDATASET$Change2yearb)
-FINALDATASET$ThirdForestChangeEventb <- ifelse(is.na(FINALDATASET$ThirdForestChangeEventb), FINALDATASET$ThirdForestChangeEvent, FINALDATASET$ThirdForestChangeEventb)
-FINALDATASET$ChangeType3b <- ifelse(is.na(FINALDATASET$ChangeType3b), FINALDATASET$ChangeType3, FINALDATASET$ChangeType3b)
-FINALDATASET$LossDriver3b <- ifelse(is.na(FINALDATASET$LossDriver3b), FINALDATASET$LossDriver3, FINALDATASET$LossDriver3b)
-FINALDATASET$DegradationDriver3b <- ifelse(is.na(FINALDATASET$DegradationDriver3b), FINALDATASET$DegradationDriver3, FINALDATASET$DegradationDriver3b)
-FINALDATASET$morethan3forestchangesb <- ifelse(is.na(FINALDATASET$morethan3forestchangesb), FINALDATASET$morethan3forestchanges, FINALDATASET$morethan3forestchangesb)
-FINALDATASET$DescribeExtraChangesb <- ifelse(is.na(FINALDATASET$DescribeExtraChangesb), FINALDATASET$DescribeExtraChanges, FINALDATASET$DescribeExtraChangesb)
-FINALDATASET$Change3yearb <- ifelse(is.na(FINALDATASET$Change3yearb), FINALDATASET$Change3year, FINALDATASET$Change3yearb)
-FINALDATASET$ChangeType1b <- ifelse(is.na(FINALDATASET$ChangeType1b), FINALDATASET$ChangeType1, FINALDATASET$ChangeType1b)
-FINALDATASET$LossDriver1b <- ifelse(is.na(FINALDATASET$LossDriver1b), FINALDATASET$LossDriver1, FINALDATASET$LossDriver1b)
-FINALDATASET$DegradationDriver1b <- ifelse(is.na(FINALDATASET$DegradationDriver1b), FINALDATASET$DegradationDriver1, FINALDATASET$DegradationDriver1b)
-FINALDATASET$LC2018endb <- ifelse(is.na(FINALDATASET$LC2018endb), FINALDATASET$LC2018end, FINALDATASET$LC2018endb)
-FINALDATASET$ForestType2018b <- ifelse(is.na(FINALDATASET$ForestType2018b), FINALDATASET$ForestType2018, FINALDATASET$ForestType2018b)
-FINALDATASET$NonForestType2018b <- ifelse(is.na(FINALDATASET$NonForestType2018b), FINALDATASET$NonForestType2018, FINALDATASET$NonForestType2018b)
-FINALDATASET$CropType2018b <- ifelse(is.na(FINALDATASET$CropType2018b), FINALDATASET$CropType2018, FINALDATASET$CropType2018b)
-FINALDATASET$mixedLCpixelb <- ifelse(is.na(FINALDATASET$mixedLCpixelb), FINALDATASET$mixedLCpixel, FINALDATASET$mixedLCpixelb)
-FINALDATASET$Confidenceb <- ifelse(is.na(FINALDATASET$Confidenceb), FINALDATASET$Confidence, FINALDATASET$Confidenceb)
-FINALDATASET$ConfidenceReasoningb <- ifelse(is.na(FINALDATASET$ConfidenceReasoningb), FINALDATASET$ConfidenceReasoning, FINALDATASET$ConfidenceReasoningb)
+SMEreviewdData_toreplaceold$LC2000b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_lc2000a, SMEreviewdData_toreplaceold$LC2000b)
+SMEreviewdData_toreplaceold$ForestType2000b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_foresttype2000, SMEreviewdData_toreplaceold$ForestType2000b)
+SMEreviewdData_toreplaceold$NonForestType2000b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_nonforesttype2000, SMEreviewdData_toreplaceold$NonForestType2000b)
+SMEreviewdData_toreplaceold$CropType2000b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_nonforesttype2000, SMEreviewdData_toreplaceold$CropType2000b)
+SMEreviewdData_toreplaceold$forestChangeEventb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_forestchangeevent, SMEreviewdData_toreplaceold$forestChangeEventb)
+SMEreviewdData_toreplaceold$Change1yearb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_change1year, SMEreviewdData_toreplaceold$Change1yearb)
+SMEreviewdData_toreplaceold$SecondForestChangeEventb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_secondforestchangeevent, SMEreviewdData_toreplaceold$SecondForestChangeEventb)
+SMEreviewdData_toreplaceold$ChangeType2b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_changetype2, SMEreviewdData_toreplaceold$ChangeType2b)
+SMEreviewdData_toreplaceold$DegradationDriver2b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_degradationdriver2, SMEreviewdData_toreplaceold$DegradationDriver2b)
+SMEreviewdData_toreplaceold$LossDriver2b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_lossdriver2, SMEreviewdData_toreplaceold$LossDriver2b)
+SMEreviewdData_toreplaceold$Change2yearb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_change2year, SMEreviewdData_toreplaceold$Change2yearb)
+SMEreviewdData_toreplaceold$ThirdForestChangeEventb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_thirdforestchangeevent, SMEreviewdData_toreplaceold$ThirdForestChangeEventb)
+SMEreviewdData_toreplaceold$ChangeType3b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_changetype3, SMEreviewdData_toreplaceold$ChangeType3b)
+SMEreviewdData_toreplaceold$LossDriver3b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_lossdriver3, SMEreviewdData_toreplaceold$LossDriver3b)
+SMEreviewdData_toreplaceold$DegradationDriver3b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_degradationdriver3, SMEreviewdData_toreplaceold$DegradationDriver3b)
+SMEreviewdData_toreplaceold$morethan3forestchangesb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_morethan3forestchanges, SMEreviewdData_toreplaceold$morethan3forestchangesb)
+SMEreviewdData_toreplaceold$DescribeExtraChangesb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_describeextrachanges, SMEreviewdData_toreplaceold$DescribeExtraChangesb)
+SMEreviewdData_toreplaceold$Change3yearb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_change3year, SMEreviewdData_toreplaceold$Change3yearb)
+SMEreviewdData_toreplaceold$ChangeType1b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_changetype1, SMEreviewdData_toreplaceold$ChangeType1b)
+SMEreviewdData_toreplaceold$LossDriver1b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_lossdriver1, SMEreviewdData_toreplaceold$LossDriver1b)
+SMEreviewdData_toreplaceold$DegradationDriver1b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_degradationdriver1, SMEreviewdData_toreplaceold$DegradationDriver1b)
+SMEreviewdData_toreplaceold$LC2018endb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_lc2018end, SMEreviewdData_toreplaceold$LC2018endb)
+SMEreviewdData_toreplaceold$ForestType2018b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_foresttype2018, SMEreviewdData_toreplaceold$ForestType2018b)
+SMEreviewdData_toreplaceold$NonForestType2018b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_nonforesttype2018, SMEreviewdData_toreplaceold$NonForestType2018b)
+SMEreviewdData_toreplaceold$CropType2018b <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_croptype2018, SMEreviewdData_toreplaceold$CropType2018b)
+SMEreviewdData_toreplaceold$mixedLCpixelb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_mixedlcpixel, SMEreviewdData_toreplaceold$mixedLCpixelb)
+SMEreviewdData_toreplaceold$Confidenceb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_confidence, SMEreviewdData_toreplaceold$Confidenceb)
+SMEreviewdData_toreplaceold$ConfidenceReasoningb <- ifelse(SMEreviewdData_toreplaceold$email %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$pl_confidencereasoning, SMEreviewdData_toreplaceold$ConfidenceReasoningb)
 
-write.csv(FINALDATASET, file = 'Results\\FINALDATASET_testmerge_v2.csv', row.names = F)
+write.csv(SMEreviewdData_toreplaceold, file = 'Results\\SMEreviewdData_toreplaceold_testmerge_v3.csv', row.names = F)
 
+FINALDATASET <- SMEreviewdData_toreplaceold
 ############Set up clean CEO labels - Version 4 NEW
 #In version 4: Pixels with multiple events are combined, agroforestry pulled out
 FINALDATASET$CEOreadable_v4_NEWb <- ifelse(FINALDATASET$ChangeType1b == "Degradation" & FINALDATASET$ChangeType2b %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
@@ -522,6 +524,9 @@ FINALDATASET$CEOreadable_v4_NEWb <- ifelse(FINALDATASET$ChangeType1b == "Degrada
                                                                                     ifelse(FINALDATASET$forestChangeEventb == "N/A non-forest entire time" & FINALDATASET$CropType2000b %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest",
                                                                                            ifelse(FINALDATASET$forestChangeEventb == "no", "stable forest", 'NotReviewed')))))))))
 table(FINALDATASET$CEOreadable_v4_NEWb)
+
+
+write.csv(SMEreviewdData_toreplaceold, file = 'Results\\TEST_CEOreadable_v4output.csv', row.names = F)
 
 #In version 5: Pixels with multiple events are combined, agroforestry pulled out, separated by epoch
 FINALDATASET$CEOreadable_v5_NEWb <- ifelse(FINALDATASET$ChangeType1b == "Degradation" & FINALDATASET$ChangeType2b %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',

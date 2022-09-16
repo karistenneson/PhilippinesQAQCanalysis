@@ -1,0 +1,9 @@
+"","Deforestation Epoch1","Deforestation Epoch23","multiple events eco possible","multiple events noise","Reforestation Epoch1","Reforestation Epoch23","stable forest","stable nonforest"
+"deforested epoch 1",10,4,0,1,0,1,26,9
+"deforested epoch 2 & 3",5,10,1,0,0,3,22,10
+"multiple events ecologically possible",4,6,4,0,0,3,29,10
+"multiple events noise",1,2,4,0,0,3,21,20
+"reforested epoch 1",0,1,1,0,6,7,29,7
+"reforested epoch 2 & 3",2,0,1,0,1,8,17,22
+"stable forest",3,2,0,0,0,2,178,8
+"stable non forest",1,2,1,0,1,3,52,286
