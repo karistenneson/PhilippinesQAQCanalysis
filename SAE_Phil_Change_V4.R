@@ -27,10 +27,13 @@ setwd("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalys
 # 70: "multiple events noise",
 # 80: "multiple events ecologically possible",
 ## file created of extracted map strata from exported dataCEO_combo
-#probably delete this...
-data_mapstrata <- read.csv("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\PhilippinesPointsCombo_Strata.csv")
-dim(data_mapstrata)
-colnames(data_mapstrata)
+
+#original data
+#not used because 150 duplicate answers had not yet been reviewed and removed
+#contains 1000 points
+#data_mapstrata <- read.csv("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\PhilippinesPointsCombo_Strata.csv")
+#dim(data_mapstrata)
+#colnames(data_mapstrata)
 
 
 ############## Strata pixel counts #############
@@ -45,17 +48,20 @@ strataAreas <- strataAreas[-c(4:5)]
 ############needed later
 '%!in%' <- Negate('%in%')
 
+#this file will be merged with datamerged_FIXED_v2 later
+#contains 850 points
+#Duplicates have been reviewed and removed. 
 datamerged_FIXED <- read.csv("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\Datamerged_v2_fixcompleted.csv")
 dim(datamerged_FIXED)
 colnames(datamerged_FIXED)
-###########################################################################
-############################################################################
-###########################################################################
-############################################################################
+
+
+
 ##After review there were a few points that were double checked because
 ##there were more off-diagonal points than were expected in the confusion matrix
 ##Below is the updated analysis with those points altered
 #This data file has been cleaned up so column answers are in the right place
+#only 100 points in this file
 datamerged_FIXED_v2 <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\ceo-Philippines_QAQCReview_MapInterpreterDisagreement-sample-data-2022-05-16_FIXforSMEpart1_DuplicatesRemoved.csv')
 colnames(datamerged_FIXED_v2)
 datamerged_FIXED_v2 <- datamerged_FIXED_v2[-c(1,6:80)]
@@ -99,16 +105,26 @@ colnames(datamerged_FIXED_v2)
 
 
 #########More points were reviewed by SMEs, 41 points
-SMEreviewdData_toreplaceold <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\reviewed41_bestlabel.csv')
+#SMEreviewdData_toreplaceold <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\reviewed41_bestlabel.csv')
+#in this version the 3 missing data cells were replaced
+#PLOTID 234, 919, 650 had "no" added to "ThirdForestChangeEventd" instead of an empty cell. This was an error in the original data collection.
+#ChangeYear3C was changed from "no" to "NA" for 234
+SMEreviewdData_toreplaceold <- read.csv('C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\reviewed41_bestlabel_fixed3missingdatacells.csv')
 dim(SMEreviewdData_toreplaceold)
 colnames(SMEreviewdData_toreplaceold)
 #write.csv(SMEreviewdData_toreplaceold, file = 'Results\\CHECK41.csv', row.names = F)
+
+############# merging datasets 850 + 100 double checked from off-diagonals
 datamerged_combo12 <- merge(datamerged_FIXED, datamerged_FIXED_v2, by.x = c('lon','lat'), by.y = c('lonb','latb'), all.x = T)
 #find duplicates in PLOTID: 19  71  82 266 315 372 445 652 669 718 814 863 901 903 924
 sort(datamerged_combo12$PLOTIDb[duplicated(datamerged_combo12$PLOTID)])
+dim(datamerged_combo12)
+
+############# merge (850+100review+41reviewed) --- the reviews will replace olds for a total of 850
 SMEreviewdData_toreplaceold <- merge(datamerged_combo12, SMEreviewdData_toreplaceold, by.x = c('lon','lat'), by.y = c('lonc','latc'), all.x = T)
 dim(SMEreviewdData_toreplaceold)
 #write.csv(SMEreviewdData_toreplaceold, file = 'Results\\ARELATLONGSWRONG.csv', row.names = F)
+
 ####Fill in all the values for the rows that were not reviewed with the original answers
 SMEreviewdData_toreplaceold$EMAILc <- ifelse(SMEreviewdData_toreplaceold$emailb %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$EMAILc, SMEreviewdData_toreplaceold$emailb)
 SMEreviewdData_toreplaceold$LC2000c <- ifelse(SMEreviewdData_toreplaceold$emailb %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$LC2000c, SMEreviewdData_toreplaceold$LC2000b)
@@ -139,6 +155,8 @@ SMEreviewdData_toreplaceold$CropType2018c <- ifelse(SMEreviewdData_toreplaceold$
 SMEreviewdData_toreplaceold$mixedLCpixelc <- ifelse(SMEreviewdData_toreplaceold$emailb %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$mixedLCpixelc, SMEreviewdData_toreplaceold$mixedLCpixelb)
 SMEreviewdData_toreplaceold$Confidencec <- ifelse(SMEreviewdData_toreplaceold$emailb %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$Confidencec, SMEreviewdData_toreplaceold$Confidenceb)
 SMEreviewdData_toreplaceold$ConfidenceReasoningc <- ifelse(SMEreviewdData_toreplaceold$emailb %!in% c('tgisorena@yahoo.com','leizeldelacruz@gmail.com'), SMEreviewdData_toreplaceold$ConfidenceReasoningc, SMEreviewdData_toreplaceold$ConfidenceReasoningb)
+
+write.csv(SMEreviewdData_toreplaceold, file = 'Results\\CHECKCHANGEYEAR3.csv', row.names = F)
 
 ####Fill in all the values for the rows that were not reviewed with the original answers
 SMEreviewdData_toreplaceold$EMAILd <- ifelse(SMEreviewdData_toreplaceold$LC2000c %!in% c('forest','non-forest'), SMEreviewdData_toreplaceold$EMAIL, SMEreviewdData_toreplaceold$EMAILc)
@@ -172,10 +190,17 @@ SMEreviewdData_toreplaceold$Confidenced <- ifelse(SMEreviewdData_toreplaceold$LC
 SMEreviewdData_toreplaceold$ConfidenceReasoningd <- ifelse(SMEreviewdData_toreplaceold$LC2000c %!in% c('forest','non-forest'), SMEreviewdData_toreplaceold$ConfidenceReasoning, SMEreviewdData_toreplaceold$ConfidenceReasoningc)
 
 
-write.csv(SMEreviewdData_toreplaceold, file = 'Results\\AllDataMerged.csv', row.names = F)
+#write.csv(SMEreviewdData_toreplaceold, file = 'Results\\AllDataMerged_unalteredforcomparison_CHECK.csv', row.names = F)
+write.csv(SMEreviewdData_toreplaceold, file = 'Results\\AllDataMerged.csv', row.names=F)
+FINALDATASET <- SMEreviewdData_toreplaceold
+
+#FINALDATASET <- read.csv("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\Results\\AllDataMerged.csv")
+dim(FINALDATASET)
 dim(SMEreviewdData_toreplaceold)
 table(SMEreviewdData_toreplaceold$LC2018endd)
-FINALDATASET <- SMEreviewdData_toreplaceold
+#calling it FINALDATASET now
+
+#FINALDATASET <- SMEreviewdData_toreplaceold #just load static verison
 colnames(FINALDATASET)
 FINALDATASET <- FINALDATASET[-c(4:32,34:94)]
 colnames(FINALDATASET)
@@ -188,47 +213,47 @@ dim(FINALDATASET)
 
 ############Set up clean CEO labels - Version 4 NEW
 #In version 4: Pixels with multiple events are combined, agroforestry pulled out
-FINALDATASET$CEOreadable_v4_NEWd <- ifelse(FINALDATASET$ChangeType1d == "Degradation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
-                                          ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration"), 'Deforestation', 
-                                                 ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration"), 'Reforestation',
+FINALDATASET$CEOreadable_v4_NEWd <- ifelse(FINALDATASET$ChangeType1d == "Degradation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation"), 'Degradation',
+                                          ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation"), 'Deforestation', 
+                                                 ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation"), 'Reforestation',
                                                         ifelse(FINALDATASET$morethan3forestchangesd == "no", 'multiple events',
                                                                ifelse(FINALDATASET$morethan3forestchangesd == "yes", 'multiple events',
-                                                                      ifelse(FINALDATASET$ChangeType2d %in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$ThirdForestChangeEventd == "no", 'multiple events',
+                                                                      ifelse(FINALDATASET$ChangeType2d %in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$ThirdForestChangeEventd == "no", 'multiple events',
                                                                              ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest Agroforestry",
                                                                                     ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest",
                                                                                            ifelse(FINALDATASET$forestChangeEventd == "no", "stable forest", 'NotReviewed')))))))))
-table(FINALDATASET$CEOreadable_v4_NEWb)
+table(FINALDATASET$CEOreadable_v4_NEWd)
 
 
 #write.csv(SMEreviewdData_toreplaceold, file = 'Results\\TEST_CEOreadable_v4output.csv', row.names = F)
 
 #In version 5: Pixels with multiple events are seperated, agroforestry pulled out, separated by epoch
 #getting close to sampling strata, but degradation still present in CEO labels
-FINALDATASET$CEOreadable_v5_NEWd_perennialasnonforest <- ifelse(FINALDATASET$ChangeType1d == "Degradation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
-                                           ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation Epoch1', 
-                                           ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation Epoch23',
-                                                  ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Reforestation Epoch1',
-                                                         ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Reforestation Epoch23',       
+FINALDATASET$CEOreadable_v5_NEWd_perennialasnonforest <- ifelse(FINALDATASET$ChangeType1d == "Degradation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation"), 'Degradation',
+                                           ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation Epoch1', 
+                                           ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation Epoch23',
+                                                  ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Reforestation Epoch1',
+                                                         ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Reforestation Epoch23',       
                                                          ifelse(FINALDATASET$morethan3forestchangesd == "no", 'multiple events eco possible',
                                                                 ifelse(FINALDATASET$morethan3forestchangesd == "yes", 'multiple events noise',
-                                                                       ifelse(FINALDATASET$ChangeType2d %in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$ThirdForestChangeEventd == "no", 'multiple events eco possible',
+                                                                       ifelse(FINALDATASET$ChangeType2d %in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$ThirdForestChangeEventd == "no", 'multiple events eco possible',
                                                                               ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest", #not labeled agro
                                                                                      ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest",
                                                                                             ifelse(FINALDATASET$forestChangeEventd == "no", "stable forest", 'NotReviewed')))))))))))
-table(FINALDATASET$CEOreadable_v5_NEWd_perennialasnonforest)
-
-FINALDATASET$CEOreadable_v6_NEWd_perennialasforest <- ifelse(FINALDATASET$ChangeType1d == "Degradation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration"), 'Degradation',
-                                                                ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation Epoch1', 
-                                                                       ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation Epoch23',
-                                                                              ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Reforestation Epoch1',
-                                                                                     ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Reforestation Epoch23',       
-                                                                                            ifelse(FINALDATASET$morethan3forestchangesd == "no", 'multiple events eco possible',
-                                                                                                   ifelse(FINALDATASET$morethan3forestchangesd == "yes", 'multiple events noise',
-                                                                                                          ifelse(FINALDATASET$ChangeType2d %in% c("Degradation","Deforestation","Regeneration") & FINALDATASET$ThirdForestChangeEventd == "no", 'multiple events eco possible',
-                                                                                                                 ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable forest", #not labeled agro
-                                                                                                                        ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest",
-                                                                                                                               ifelse(FINALDATASET$forestChangeEventd == "no", "stable forest", 'NotReviewed')))))))))))
-table(FINALDATASET$CEOreadable_v6_NEWd_perennialasforest)
+#not needed anymore
+#table(FINALDATASET$CEOreadable_v5_NEWd_perennialasnonforest)c("Degradation","Deforestation","Reforestation"), 'Degradation',
+#                                                                ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation Epoch1', 
+ #                                                                      ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation Epoch23',
+   #                                                                           ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Reforestation Epoch1',
+  #                                                                                   ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Reforestation Epoch23',       
+    #                                                                                        ifelse(FINALDATASET$morethan3forestchangesd == "no", 'multiple events eco possible',
+    #                                                                                               ifelse(FINALDATASET$morethan3forestchangesd == "yes", 'multiple events noise',
+    #                                                                                                      ifelse(FINALDATASET$ChangeType2d %in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$ThirdForestChangeEventd == "no", 'multiple events eco possible',
+     #                                                                                                            ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable forest", #not labeled agro
+ #     
+#                                                                                                                  ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest",
+  #                                                                                                                             ifelse(FINALDATASET$forestChangeEventd == "no", "stable forest", 'NotReviewed')))))))))))
+#table(FINALDATASET$CEOreadable_v6_NEWd_perennialasforest)
 
 
 ########Simplified Map data
@@ -244,25 +269,12 @@ FINALDATASET$ReadableChangeStrata_Map_v4[FINALDATASET$pl_change_strata == 80]<-"
 unique(FINALDATASET$ReadableChangeStrata_Map_v4)
 colnames(FINALDATASET)
 
-#add a human readable column for change strata
-##### Epoch 1 = 2000-2005
-##### Epoch 2 = 2006-2012
-##### Epoch 3 = 2013-2018
-datamerged_FIXED$ReadableChangeStrata_Map_v1<-"fixMe"
-datamerged_FIXED$ReadableChangeStrata_Map_v1[datamerged_FIXED$pl_change_strata == 31]<-"deforested epoch 1"
-datamerged_FIXED$ReadableChangeStrata_Map_v1[datamerged_FIXED$pl_change_strata == 32]<-"deforested epoch 2 & 3"
-datamerged_FIXED$ReadableChangeStrata_Map_v1[datamerged_FIXED$pl_change_strata == 41]<-"reforested epoch 1"
-datamerged_FIXED$ReadableChangeStrata_Map_v1[datamerged_FIXED$pl_change_strata == 42]<-"reforested epoch 2 & 3"
-datamerged_FIXED$ReadableChangeStrata_Map_v1[datamerged_FIXED$pl_change_strata == 50]<-"stable forest"
-datamerged_FIXED$ReadableChangeStrata_Map_v1[datamerged_FIXED$pl_change_strata == 60]<-"stable non forest"
-datamerged_FIXED$ReadableChangeStrata_Map_v1[datamerged_FIXED$pl_change_strata == 70]<-"multiple events noise"
-datamerged_FIXED$ReadableChangeStrata_Map_v1[datamerged_FIXED$pl_change_strata == 80]<-"multiple events ecologically possible"
-table(datamerged_FIXED$ReadableChangeStrata_Map_v1)
-colnames(datamerged_FIXED)
 
 #add in new degradation labels, for assessing the accuracy, making CEO match map strata
+#simple file of all points, but only values for those where the answer was changed from degradation to something else
 degradation_relabel <- read.csv("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\data\\Degradation_Relabel.csv")
 dim(degradation_relabel)
+#add a column with the new labels for everything previously listed as degradation to FINALDATASET
 FINALDATASET <- merge(FINALDATASET, degradation_relabel, by.x = c('PLOTID','lon','lat'), by.y = c('PLOTID','lon','lat'), all.x = F)
 dim(FINALDATASET)
 
@@ -274,20 +286,76 @@ FINALDATASET$CEOreadable_v6_perennialasnonforest_DEGrelabel <- ifelse(FINALDATAS
                                                                              FINALDATASET$CEOreadable_v5_NEWd_perennialasnonforest)))
 table(FINALDATASET$CEOreadable_v6_perennialasnonforest_DEGrelabel)
 
-FINALDATASET$CEOreadable_v6_perennialasFOREST_DEGrelabel <- ifelse(FINALDATASET$CEOreadable_v6_NEWd_perennialasforest == "Degradation" & FINALDATASET$FinalLabel != "Deforestation", FINALDATASET$FinalLabel,
-                                                                      ifelse(FINALDATASET$CEOreadable_v6_NEWd_perennialasforest == "Degradation" & FINALDATASET$FinalLabel == "Deforestation" & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation Epoch1',
-                                                                             ifelse(FINALDATASET$CEOreadable_v6_NEWd_perennialasforest == "Degradation" & FINALDATASET$FinalLabel == "Deforestation" & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation Epoch23',
-                                                                                    FINALDATASET$CEOreadable_v6_NEWd_perennialasforest)))
-table(FINALDATASET$CEOreadable_v6_perennialasFOREST_DEGrelabel)
-
 table(degradation_relabel$FinalLabel)
-FINALDATASET$CEOreadable_v7_perennialseparate_DEGrelabel <- ifelse(FINALDATASET$CEOreadable_v4_NEWd == "Degradation" & FINALDATASET$FinalLabel != "multiple events eco possible", FINALDATASET$FinalLabel,
-                                                                          ifelse(FINALDATASET$CEOreadable_v4_NEWd == "Degradation" & FINALDATASET$FinalLabel == "multiple events eco possible", "multiple events",
-                                                                                 FINALDATASET$CEOreadable_v4_NEWd))
-table(FINALDATASET$CEOreadable_v7_perennialseparate_DEGrelabel)
 
 
-write.csv(FINALDATASET, file = 'Results\\CHECK_DEGRELABEL_TEMP.csv', row.names = T)
+
+#Find 'final labels' first so they are not missed.
+
+
+########## NEEDED RESULT
+########## To use for analysis when epoch distinctions for CEO labels are needed
+FINALDATASET$CEOreadable_v7CORRECT_NEWRobStrata_perennialseparate_epoch1and23 <-  ifelse(FINALDATASET$FinalLabel %in% c("stable forest","stable nonforest"),FINALDATASET$FinalLabel,
+                                                                                 ifelse(FINALDATASET$FinalLabel == "multiple events eco possible","multiple events",
+                                                                                 ifelse(FINALDATASET$FinalLabel == "Deforestation" & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation Epoch1',
+                                                                                 ifelse(FINALDATASET$FinalLabel == "Deforestation" & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation Epoch23',
+                                                                                 ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation Epoch1', 
+                                                                                 ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation Epoch23',
+                                                                                        ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Reforestation Epoch1',
+                                                                                               ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Reforestation Epoch23',       
+                                                                                                      ifelse(FINALDATASET$morethan3forestchangesd == "no", 'multiple events',
+                                                                                                             ifelse(FINALDATASET$morethan3forestchangesd == "yes", 'multiple events',
+                                                                                                                    ifelse(FINALDATASET$ChangeType2d %in% c("Deforestation","Reforestation") & FINALDATASET$ThirdForestChangeEventd == "no", 'multiple events',
+                                                                                                                           ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest", #not labeled agro
+                                                                                                                                  ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "perennial crop",
+                                                                                                                                         ifelse(FINALDATASET$forestChangeEventd == "no", "stable forest",'NotReviewed'))))))))))))))
+table(FINALDATASET$CEOreadable_v7CORRECT_NEWRobStrata_perennialseparate_epoch1and23)
+
+########## NEEDED RESULT
+############ To use for analysis when epochs of CEO labels are grouped
+FINALDATASET$CEOreadable_v8CORRECT_NEWRobStrata_perennialseparate_epochsgrouped <- ifelse(FINALDATASET$FinalLabel %in% c("stable forest","stable nonforest"),FINALDATASET$FinalLabel,
+                                                                                              ifelse(FINALDATASET$FinalLabel == "multiple events eco possible","multiple events",
+                                                                                                     ifelse(FINALDATASET$FinalLabel == "Deforestation" & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation',
+                                                                                                            ifelse(FINALDATASET$FinalLabel == "Deforestation" & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation',
+                                                                                                                   ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Deforestation', 
+                                                                                                                          ifelse(FINALDATASET$ChangeType1d == "Deforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Deforestation',
+                                                                                                                                 ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2000:2005), 'Reforestation',
+                                                                                                                                        ifelse(FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$ChangeType2d %!in% c("Degradation","Deforestation","Reforestation") & FINALDATASET$Change1yeard %in% c(2006:2018), 'Reforestation',       
+                                                                                                                                               ifelse(FINALDATASET$morethan3forestchangesd == "no", 'multiple events',
+                                                                                                                                                      ifelse(FINALDATASET$morethan3forestchangesd == "yes", 'multiple events',
+                                                                                                                                                             ifelse(FINALDATASET$ChangeType2d %in% c("Deforestation","Reforestation") & FINALDATASET$ThirdForestChangeEventd == "no", 'multiple events',
+                                                                                                                                                                    ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %!in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "stable nonforest", #not labeled agro
+                                                                                                                                                                           ifelse(FINALDATASET$forestChangeEventd == "N/A non-forest entire time" & FINALDATASET$CropType2000d %in% c("coconut / other palm","unsure","fruit trees (mango, cashew, avocado, rambutan durian)","banana"), "perennial crop",
+                                                                                                                                                                                  ifelse(FINALDATASET$forestChangeEventd == "no", "stable forest",'NotReviewed'))))))))))))))
+table(FINALDATASET$CEOreadable_v8CORRECT_NEWRobStrata_perennialseparate_epochsgrouped)
+
+
+#THIS IS THE SPREADSHEET WHERE ILLOGICAL LABELS WERE NOTICED AND NEED TO BE REVIEWED AND REIMPORTED
+#write.csv(FINALDATASET, file = 'Results\\FINALDATASET_withROBclasses_Sep22_v3.csv', row.names = F)
+
+
+################ Find illogical label combination points for review
+# e.g. where a reforestation event was followed by a land cover of perennial crop, which is not forest
+FINALDATASET$ReviewIllogicalLabels<-"MakesSense"
+
+FINALDATASET$ReviewImpossibleLabels <- ifelse(FINALDATASET$NonForestType2018d == "perennial crop" & FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$SecondForestChangeEventd == "no", 'Ref event1 ending perennial',
+                                                                                      ifelse(FINALDATASET$NonForestType2018d == "perennial crop" & FINALDATASET$ChangeType2d == "Reforestation" & FINALDATASET$ThirdForestChangeEventd == "no", 'Ref event2 ending perennial', 
+                                                                                             ifelse(FINALDATASET$NonForestType2018d == "perennial crop" & FINALDATASET$ChangeType3d == "Reforestation" & FINALDATASET$morethan3forestchangesd == "no", 'Ref event3 ending perennial', 
+                                                                                                    ifelse(FINALDATASET$forestChangeEventd == "no" & FINALDATASET$LC2000d == "forest" & FINALDATASET$LC2018endd == "non-forest", 'LC-forest to LC-nonforest but no change', 
+                                                                                                           ifelse(FINALDATASET$forestChangeEventd == "no" & FINALDATASET$LC2000d == "non-forest" & FINALDATASET$LC2018endd == "forest", 'LC-nonforest to LC-forest but no change',
+                                                                                                                  ifelse(FINALDATASET$NonForestType2000d == "perennial crop" & FINALDATASET$NonForestType2018d == "perennial crop" & FINALDATASET$forestChangeEventd == "yes", 'change marked but perennial beginning and end', 
+                                                                                                                         ifelse(FINALDATASET$NonForestType2000d == "perennial crop" & FINALDATASET$ChangeType1d == "Deforestation", 'LC-Perennial expereinceing Def1', FINALDATASET$ReviewIllogicalLabels)))))))
+ 
+table(FINALDATASET$ReviewImpossibleLabels)
+
+write.csv(FINALDATASET, file = 'Results\\FINALDATASET_ColumnForReview.csv', row.names = F)
+
+
+##################### No Necessary to Run Past Here
+#############Use the spreadsheet to make a confusion matrix
+
+#########################################################################################################
+#########################################################################################################
 
 #THIS IS THE EASY TO READ ONE
 #cross tab of NEW simplified mapv3 and ceo v4 agroforestry removed strata
@@ -310,9 +378,9 @@ write.csv(table_strataname_StrataCEOMatch, file = 'Results\\CrossTable_StrataCEO
 
 #THIS IS THE ONE WHERE STRATA AND CEO MATCH, FOR ACCURACCY CHECKS - STABLE PERENNIAL RELABELED FOREST HERE
 #cross tab of NEW strataorig and ceov5, agroforestry pulled out, separated by epoch, degradation relabeled, perennial stable nonforest
-table(FINALDATASET$StrataName, FINALDATASET$CEOreadable_v6_perennialasFOREST_DEGrelabel)
-table_strataname_StrataCEOMatch_perennialFOREST <- table(FINALDATASET$StrataName, FINALDATASET$CEOreadable_v6_perennialasFOREST_DEGrelabel)
-write.csv(table_strataname_StrataCEOMatch_perennialFOREST , file = 'Results\\CrossTable_StrataCEOMatch_perennialFOREST.csv', row.names = T)
+#table(FINALDATASET$StrataName, FINALDATASET$CEOreadable_v6_perennialasFOREST_DEGrelabel)
+#table_strataname_StrataCEOMatch_perennialFOREST <- table(FINALDATASET$StrataName, FINALDATASET$CEOreadable_v6_perennialasFOREST_DEGrelabel)
+#write.csv(table_strataname_StrataCEOMatch_perennialFOREST , file = 'Results\\CrossTable_StrataCEOMatch_perennialFOREST.csv', row.names = T)
 
 #THIS IS THE ONE WITH DEGRADATION RELABELED BUT PERENNIAL CROPS SEPARATE
 table(FINALDATASET$StrataName, FINALDATASET$CEOreadable_v7_perennialseparate_DEGrelabel)
@@ -321,7 +389,19 @@ write.csv(table_strataname_RelabelDEG_perennialFORESTseparate , file = 'Results\
 
 
 
-write.csv(FINALDATASET, file = 'Results\\FINALDATASET_ALLREVIEWSCOMPLETED.csv', row.names = T)
+#THIS IS THE ONE FOR ROB
+#NEW STRATA, EPOCHS SEPARATED INTO 1 AND 2/3, STABLE PERENNIAL CROP SEPARATE, ALL MULTIPLE EVENTS GROUPED, DEGRADATION RELABELED
+table(FINALDATASET$StrataName,FINALDATASET$CEOreadable_v7_NEWRobStrata_perennialseparate_epoch1and23)
+table_strataname_CEOreadable_v7_NEWRobStrata_perennialseparate_epoch1and23 <- table(FINALDATASET$StrataName,FINALDATASET$CEOreadable_v7_NEWRobStrata_perennialseparate_epoch1and23)
+write.csv(table_strataname_CEOreadable_v7_NEWRobStrata_perennialseparate_epoch1and23, file = 'Results\\FINAL_TABLE_ROBclasses_RelabelDEG_perennialseparate_epoch1and23_multichangegrouped.csv',row.names = T)
+
+#THIS IS THE ONE FOR ROB with alternative of grouped change epochs
+#NEW STRATA, EPOCHS SEPARATED INTO 1 AND 2/3, STABLE PERENNIAL CROP SEPARATE, ALL MULTIPLE EVENTS GROUPED, DEGRADATION RELABELED
+table(FINALDATASET$StrataName,FINALDATASET$CEOreadable_v8_NEWRobStrata_perennialseparate_epochsgroupedalternative)
+table_v8_NEWRobStrata_perennialseparate_epochsgroupedalternative <- table(FINALDATASET$StrataName,FINALDATASET$CEOreadable_v8_NEWRobStrata_perennialseparate_epochsgroupedalternative)
+write.csv(table_v8_NEWRobStrata_perennialseparate_epochsgroupedalternative, file = 'Results\\FINAL_TABLE_ROBclasses_v8_NEWRobStrata_perennialseparate_epochsgroupedalternative.csv',row.names = T)
+
+write.csv(FINALDATASET, file = 'Results\\FINALDATASET_ALLREVIEWSCOMPLETED_NEWsep22.csv', row.names = T)
 ####################### NO REVIEW DONE PAST THIS POINT ###########
 
 
@@ -341,6 +421,7 @@ write.csv(table_compare_SMEpart1_toorig, file = 'Results\\table_compare_SMEpart1
 ##########################################################################################
 ##########################################################################################
 ## ANALYSIS REDO
+## DO NOT RECOMMEND USING THIS METHOD, SPREADSHEET AE/CI ESTIMATION IS EASIER TO ADAPT
 ##########################################################################################
 ##########################################################################################
 #cross tab of simplified mapv3 and ceo v4 agroforestry removed strata

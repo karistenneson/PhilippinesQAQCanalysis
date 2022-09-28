@@ -1,0 +1,9 @@
+"","Deforestation","multiple events","perennial crop","Reforestation","stable forest","stable nonforest"
+"deforested epoch 1",14,1,8,1,7,20
+"deforested epoch 2 & 3",15,1,10,3,7,15
+"multiple events ecologically possible",10,3,10,3,16,14
+"multiple events noise",3,3,20,3,10,12
+"reforested epoch 1",1,1,7,13,14,15
+"reforested epoch 2 & 3",2,1,22,9,4,13
+"stable forest",5,0,7,2,161,18
+"stable non forest",3,1,286,4,9,43
