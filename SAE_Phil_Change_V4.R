@@ -336,7 +336,7 @@ table(FINALDATASET$CEOreadable_v8CORRECT_NEWRobStrata_perennialseparate_epochsgr
 
 ################ Find illogical label combination points for review
 # e.g. where a reforestation event was followed by a land cover of perennial crop, which is not forest
-FINALDATASET$ReviewIllogicalLabels<-"MakesSense"
+FINALDATASET$ReviewImpossibleLabels<-"MakesSense"
 
 FINALDATASET$ReviewImpossibleLabels <- ifelse(FINALDATASET$NonForestType2018d == "perennial crop" & FINALDATASET$ChangeType1d == "Reforestation" & FINALDATASET$SecondForestChangeEventd == "no", 'Ref event1 ending perennial',
                                                                                       ifelse(FINALDATASET$NonForestType2018d == "perennial crop" & FINALDATASET$ChangeType2d == "Reforestation" & FINALDATASET$ThirdForestChangeEventd == "no", 'Ref event2 ending perennial', 
@@ -344,7 +344,7 @@ FINALDATASET$ReviewImpossibleLabels <- ifelse(FINALDATASET$NonForestType2018d ==
                                                                                                     ifelse(FINALDATASET$forestChangeEventd == "no" & FINALDATASET$LC2000d == "forest" & FINALDATASET$LC2018endd == "non-forest", 'LC-forest to LC-nonforest but no change', 
                                                                                                            ifelse(FINALDATASET$forestChangeEventd == "no" & FINALDATASET$LC2000d == "non-forest" & FINALDATASET$LC2018endd == "forest", 'LC-nonforest to LC-forest but no change',
                                                                                                                   ifelse(FINALDATASET$NonForestType2000d == "perennial crop" & FINALDATASET$NonForestType2018d == "perennial crop" & FINALDATASET$forestChangeEventd == "yes", 'change marked but perennial beginning and end', 
-                                                                                                                         ifelse(FINALDATASET$NonForestType2000d == "perennial crop" & FINALDATASET$ChangeType1d == "Deforestation", 'LC-Perennial expereinceing Def1', FINALDATASET$ReviewIllogicalLabels)))))))
+                                                                                                                         ifelse(FINALDATASET$NonForestType2000d == "perennial crop" & FINALDATASET$ChangeType1d == "Deforestation", 'LC-Perennial expereinceing Def1', FINALDATASET$ReviewImpossibleLabels)))))))
  
 table(FINALDATASET$ReviewImpossibleLabels)
 
