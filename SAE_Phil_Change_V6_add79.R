@@ -389,7 +389,7 @@ FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap =
 FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap == 22]<-"Deforested E2/3 (agreement between maps)"
 FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap == 27]<-"Multiple events (relabeled from Def E2/3)"
 FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap == 33]<-"Reforested E1 (agreement between maps)"
-FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap == 37]<-"Multiple events (relabeled from Eef E1)"
+FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap == 37]<-"Multiple events (relabeled from Ref E1)"
 FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap == 44]<-"Reforested E2/3 (agreement between maps)"
 FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap == 47]<-"Multiple events (relabeled from Ref E2/3)"
 FINALDATASET$ReadableChangeStrata_Map_Modified[FINALDATASET$Modified_stratamap == 55]<-"stable forest"
@@ -657,8 +657,8 @@ write.csv(crosstab_allclean_MODIFIEDstrata_simp, file = 'Results\\CROSSTAB_MODIF
 FINALDATASET_no79 <- (FINALDATASET[order(FINALDATASET$PLOTIDd),][-c(851:929), ])
 
 write.csv(FINALDATASET_no79, file = 'Results\\COMPLETEDDATA_850only_FINAL.csv', row.names = F)
-table(FINALDATASET_no79$ReadableChangeStrata_Map_old,FINALDATASET_no79$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
-crosstab_originaldata_allclean_no79 <- table(FINALDATASET_no79$ReadableChangeStrata_Map_old,FINALDATASET_no79$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
+table(FINALDATASET_no79$ReadableChangeStrata_Map_Modified,FINALDATASET_no79$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
+crosstab_originaldata_allclean_no79 <- table(FINALDATASET_no79$ReadableChangeStrata_Map_Modified,FINALDATASET_no79$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
 write.csv(crosstab_originaldata_allclean_no79, file = 'Results\\CROSSTAB_ModStrata_FINAL_850only_forComparison.csv', row.names = T)
 
 
