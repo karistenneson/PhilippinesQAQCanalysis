@@ -646,12 +646,12 @@ write.csv(crosstab_originaldata_allclean_simp, file = 'Results\\OriginalDataSimp
 #FINAL CROSS TAB, MODIFIED STRATA VS CEO LABELS
 table(FINALDATASET$ReadableChangeStrata_Map_Modified,FINALDATASET$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
 crosstab_allclean_MODIFIEDstrata_USEFORANALYSIS <- table(FINALDATASET$ReadableChangeStrata_Map_Modified,FINALDATASET$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
-write.csv(crosstab_allclean_MODIFIEDstrata_USEFORANALYSIS, file = 'Results\\crosstab_allclean_MODIFIEDstrata_USEFORANALYSIS.csv', row.names = T)
+write.csv(crosstab_allclean_MODIFIEDstrata_USEFORANALYSIS, file = 'Results\\CROSSTAB_FINAL_MODIFIEDstrata_USEFORANALYSIS_850and79.csv', row.names = T)
 
 #FINAL CROSS TAB, MODIFIED STRATA VS CEO LABELS
 table(FINALDATASET$ReadableChangeStrata_Map_Modified_simp,FINALDATASET$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
 crosstab_allclean_MODIFIEDstrata_simp <- table(FINALDATASET$ReadableChangeStrata_Map_Modified_simp,FINALDATASET$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
-write.csv(crosstab_allclean_MODIFIEDstrata_simp, file = 'Results\\crosstab_allclean_MODIFIEDstrata_simp.csv', row.names = T)
+write.csv(crosstab_allclean_MODIFIEDstrata_simp, file = 'Results\\CROSSTAB_MODIFIEDstrata_simp_850and79.csv', row.names = T)
 
 ########## Let's reduce the cleaned dataset to the original 850 to do a comparison or the cross tabs
 FINALDATASET_no79 <- (FINALDATASET[order(FINALDATASET$PLOTIDd),][-c(851:929), ])
@@ -659,7 +659,7 @@ FINALDATASET_no79 <- (FINALDATASET[order(FINALDATASET$PLOTIDd),][-c(851:929), ])
 write.csv(FINALDATASET_no79, file = 'Results\\COMPLETEDDATA_850only_FINAL.csv', row.names = F)
 table(FINALDATASET_no79$ReadableChangeStrata_Map_old,FINALDATASET_no79$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
 crosstab_originaldata_allclean_no79 <- table(FINALDATASET_no79$ReadableChangeStrata_Map_old,FINALDATASET_no79$CEOreadable_850and79_FINAL_NEWstrata_perennialseparate_epochsgrouped)
-write.csv(crosstab_originaldata_allclean_no79, file = 'Results\\OriginalData_CleanCrossTab_FINAL_850only.csv', row.names = T)
+write.csv(crosstab_originaldata_allclean_no79, file = 'Results\\CROSSTAB_ModStrata_FINAL_850only_forComparison.csv', row.names = T)
 
 
 
