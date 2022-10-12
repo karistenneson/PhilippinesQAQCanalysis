@@ -1,0 +1,13 @@
+"","Deforestation","multiple events","perennial crop","Reforestation","stable forest","stable nonforest"
+"2/3 multiple events",2,11,14,3,17,9
+"3+ multiple events",3,4,12,2,10,20
+"Deforested E1 (agreement between maps)",7,0,14,0,3,11
+"Deforested E2/3 (agreement between maps)",16,1,8,0,6,4
+"Multiple events (relabeled from Def E1)",8,2,15,1,8,7
+"Multiple events (relabeled from Def E2/3)",12,3,14,2,8,11
+"Multiple events (relabeled from Eef E1)",1,1,11,3,4,5
+"Multiple events (relabeled from Ref E2/3)",1,0,9,4,4,9
+"Reforested E1 (agreement between maps)",0,1,9,5,14,6
+"Reforested E2/3 (agreement between maps)",0,1,8,2,3,21
+"stable forest",5,2,17,2,159,8
+"stable nonforest",2,1,42,2,12,287
