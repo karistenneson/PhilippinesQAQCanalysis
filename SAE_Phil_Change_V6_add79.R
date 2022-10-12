@@ -244,6 +244,7 @@ table(Old850_clean_withnewmaplabels$Modified_stratamap)
 head(Old850_clean_withnewmaplabels)
 #as long as the column names match between this and the new 79 points, the order of the columns should not matter.
 head(sort(Old850_clean_withnewmaplabels$LAT))
+head(sort(FINALDATASET_mapdataadded$lat))
 head(sort(FINALDATASET$lat))
 #slight difference in lon lat (~0.3 feet), so will use PLOTID to join
 #FINALDATASET_mapdataadded <- merge(FINALDATASET, Old850_clean_withnewmaplabels, by.x = c('lon','lat'), by.y = c('LON','LAT'), all.x = T)
