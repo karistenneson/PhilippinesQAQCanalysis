@@ -665,6 +665,24 @@ write.csv(crosstab_originaldata_allclean_no79, file = 'Results\\CROSSTAB_ModStra
 
 
 
+############# Get a copy of results before illogical point fixing
+
+FINAL_BEFOREREVIEW <- read.csv("C:\\Users\\cryst\\OneDrive\\Documents\\Philippines\\PhilippinesQAQCanalysis\\Results\\FINALDATASET_withROBclasses_Sep22_v3.csv")
+colnames(FINAL_BEFOREREVIEW)
+FINAL_BEFOREREVIEW <- FINAL_BEFOREREVIEW[-c(2:41)]
+colnames(FINAL_BEFOREREVIEW)
+table(FINAL_BEFOREREVIEW$CEOreadable_v8CORRECT_NEWRobStrata_perennialseparate_epochsgrouped)
+
+#join old labels with the version that has the modified map strata columns
+Old_noillogicalsremoved <- merge(FINAL_BEFOREREVIEW, FINALDATASET_no79, by.x = 'PLOTID', by.y = 'PLOTIDd', all.x = T)
+#make cross tab
+table(Old_noillogicalsremoved$ReadableChangeStrata_Map_Modified,Old_noillogicalsremoved$CEOreadable_v8CORRECT_NEWRobStrata_perennialseparate_epochsgrouped)
+CROSSTAB_oldcrosstab_noillogicalsremoved <- table(Old_noillogicalsremoved$ReadableChangeStrata_Map_Modified,Old_noillogicalsremoved$CEOreadable_v8CORRECT_NEWRobStrata_perennialseparate_epochsgrouped)
+write.csv(CROSSTAB_oldcrosstab_noillogicalsremoved, file = 'Results\\CROSSTAB_oldcrosstab_noillogicalsremoved.csv', row.names = T)
+
+
+
+
 
 ##################### Not Necessary to Run Past Here
 ############# Can use the spreadsheet to make a confusion matrix and do analysis
