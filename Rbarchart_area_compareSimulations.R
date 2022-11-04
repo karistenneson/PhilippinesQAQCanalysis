@@ -43,12 +43,12 @@ colnames(dataarea_sim35ideal)[1] <- "Strata"
 
 
 dataarea_sim51realistic <- read.csv('Results\\realisticSim51_AE_CI_forgraph_v1.csv')
-dataarea_sim51realistic$Options <- '3. Minimum  (51Realistic Simulation)'
+dataarea_sim51realistic$Options <- '3. Minimum 51 (Realistic Simulation)'
 colnames(dataarea_sim50realistic)[1] <- "Strata"
 
 
 dataarea_sim35realistic <- read.csv('Results\\realisticSim35_AE_CI_forgraph_v1.csv')
-dataarea_sim35realistic$Options <- '2. Minimum 35 (Realistic Simulation)t'
+dataarea_sim35realistic$Options <- '2. Minimum 35 (Realistic Simulation)'
 colnames(dataarea_sim35realistic)[1] <- "Strata"
 
 ?comma_format()
